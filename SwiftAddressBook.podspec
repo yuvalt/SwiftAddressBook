@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.module_name = 'SwiftAddressBook'
   s.source_files = 'Pod/Classes/**/*'
-  s.resources = ['Pod/Assets/*.png']
+  # s.resources = ['Pod/Assets/*.png']
 
   s.frameworks = ['AddressBook', 'AddressBookUI']
 end
