@@ -663,10 +663,18 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
         }
     }
     
-    private func convertMultivalueEntries<T,U : AnyObject>(multivalue : Array<MultivalueEntry<T>>?, converter : (T) -> U) -> Array<MultivalueEntry<U>>? {
-        return multivalue?.map { m -> MultivalueEntry<U> in
-            return MultivalueEntry(value: converter(m.value), label: m.label, id: m.id)
+    private func convertMultivalueEntries<T,U: AnyObject>(multivalue : [MultivalueEntry<T>]?, converter : (T) -> U) -> [MultivalueEntry<U>]? {
+        
+        var result: [MultivalueEntry<U>]?
+        if let multivalue = multivalue {
+            result = []
+            for m in multivalue {
+                var convertedValue = converter(m.value)
+                var converted = MultivalueEntry(value: convertedValue, label: m.label, id: m.id)
+                result?.append(converted)
+            }
         }
+        return result
     }
     
     private func setMultivalueProperty<T : AnyObject>(key : ABPropertyID,_ multivalue : Array<MultivalueEntry<T>>?) {
