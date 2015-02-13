@@ -663,18 +663,10 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
         }
     }
     
-    private func convertMultivalueEntries<T,U: AnyObject>(multivalue : [MultivalueEntry<T>]?, converter : (T) -> U) -> [MultivalueEntry<U>]? {
-        
-        var result: [MultivalueEntry<U>]?
-        if let multivalue = multivalue {
-            result = []
-            for m in multivalue {
-                var convertedValue = converter(m.value)
-                var converted = MultivalueEntry(value: convertedValue, label: m.label, id: m.id)
-                result?.append(converted)
-            }
+    private func convertMultivalueEntries<T,U : AnyObject>(multivalue : Array<MultivalueEntry<T>>?, converter : (T) -> U) -> Array<MultivalueEntry<U>>? {
+        return multivalue?.map { m -> MultivalueEntry<U> in
+            return MultivalueEntry(value: converter(m.value), label: m.label, id: m.id)
         }
-        return result
     }
     
     private func setMultivalueProperty<T : AnyObject>(key : ABPropertyID,_ multivalue : Array<MultivalueEntry<T>>?) {
@@ -682,7 +674,16 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
             ABRecordSetValue(internalRecord, key, ABMultiValueCreateMutable(ABMultiValueGetPropertyType(extractProperty(key))).takeRetainedValue(), nil)
         }
         
-        let abMultivalue: ABMutableMultiValue = ABMultiValueCreateMutableCopy(extractProperty(key)).takeRetainedValue()
+        var abmv : ABMutableMultiValue? = nil
+        
+        if let oldValue : ABMultiValue = extractProperty(key) {
+            abmv = ABMultiValueCreateMutableCopy(extractProperty(key)).takeRetainedValue()
+        }
+        else {
+            abmv = ABMultiValueCreateMutable(ABPersonGetTypeOfProperty(key)).takeRetainedValue()
+        }
+        
+        let abMultivalue: ABMutableMultiValue? = abmv
         
         var identifiers = Array<Int>()
         
@@ -965,6 +966,7 @@ private func convertRecordsToPersons(records : [ABRecord]?) -> [SwiftAddressBook
 //MARK: some more handy methods
 
 extension NSString {
+    
     convenience init?(optionalString : String?) {
         if optionalString == nil {
             self.init()
