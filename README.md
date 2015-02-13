@@ -1,5 +1,10 @@
 # SwiftAddressBook - A strong-typed Swift Wrapper for ABAddressBook
 
+[![CI Status](http://img.shields.io/travis/Tassilo Karge/SwiftAddressBook.svg?style=flat)](https://travis-ci.org/Tassilo Karge/SwiftAddressBook)
+[![Version](https://img.shields.io/cocoapods/v/SwiftAddressBook.svg?style=flat)](http://cocoadocs.org/docsets/SwiftAddressBook)
+[![License](https://img.shields.io/cocoapods/l/SwiftAddressBook.svg?style=flat)](http://cocoadocs.org/docsets/SwiftAddressBook)
+[![Platform](https://img.shields.io/cocoapods/p/SwiftAddressBook.svg?style=flat)](http://cocoadocs.org/docsets/SwiftAddressBook)
+
 Complete wrapper for the ABAddressBook C-Framework for iOS, written in Swift to be typesafe and convenient
 
 ## Description
@@ -31,6 +36,20 @@ Complete wrapper for the ABAddressBook C-Framework for iOS, written in Swift to 
     }
   
   Complicated Swift typecasting to NS-..., thousand times of unwrapping optionals, figuring out which constant is the key to your person property, distinguishing between group, source or person - nothing that you have to deal with any more
+
+## Usage
+
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+## Installation
+
+SwiftAddressBook is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+    pod "SwiftAddressBook"
+
+If you don´t want to use CocoaPods, just copy SwiftAddressBookWrapper.swift into your project
+
 
 ## License  
     Copyright (C) 2014  Socialbit GmbH
