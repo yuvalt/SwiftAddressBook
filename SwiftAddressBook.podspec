@@ -11,14 +11,12 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/SocialbitGmbH/SwiftAddressBook.git" }
   s.social_media_url = 'https://twitter.com/socialbit_de'
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.module_name = 'SwiftAddressBook'
   s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'SwiftAddressBook' => ['Pod/Assets/*.png']
-  }
+  s.resources = ['Pod/Assets/*.png']
 
-  s.frameworks = 'UIKit'
+  s.frameworks = ['AddressBook', 'AddressBookUI']
 end
