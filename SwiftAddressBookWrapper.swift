@@ -389,7 +389,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonFirstNameProperty)
         }
         set {
-            setSingleValueProperty(kABPersonFirstNameProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonFirstNameProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -398,7 +398,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonLastNameProperty)
         }
         set {
-            setSingleValueProperty(kABPersonLastNameProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonLastNameProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -407,7 +407,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonMiddleNameProperty)
         }
         set {
-            setSingleValueProperty(kABPersonMiddleNameProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonMiddleNameProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -416,7 +416,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonPrefixProperty)
         }
         set {
-            setSingleValueProperty(kABPersonPrefixProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonPrefixProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -425,7 +425,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonSuffixProperty)
         }
         set {
-            setSingleValueProperty(kABPersonSuffixProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonSuffixProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -434,7 +434,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonNicknameProperty)
         }
         set {
-            setSingleValueProperty(kABPersonNicknameProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonNicknameProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -443,7 +443,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonFirstNamePhoneticProperty)
         }
         set {
-            setSingleValueProperty(kABPersonFirstNamePhoneticProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonFirstNamePhoneticProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -452,7 +452,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonLastNamePhoneticProperty)
         }
         set {
-            setSingleValueProperty(kABPersonLastNamePhoneticProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonLastNamePhoneticProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -461,7 +461,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonMiddleNamePhoneticProperty)
         }
         set {
-            setSingleValueProperty(kABPersonMiddleNamePhoneticProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonMiddleNamePhoneticProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -470,7 +470,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonOrganizationProperty)
         }
         set {
-            setSingleValueProperty(kABPersonOrganizationProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonOrganizationProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -479,7 +479,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonJobTitleProperty)
         }
         set {
-            setSingleValueProperty(kABPersonJobTitleProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonJobTitleProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -488,7 +488,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonDepartmentProperty)
         }
         set {
-            setSingleValueProperty(kABPersonDepartmentProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonDepartmentProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -515,7 +515,7 @@ class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return extractProperty(kABPersonNoteProperty)
         }
         set {
-            setSingleValueProperty(kABPersonNoteProperty, NSString(string: newValue))
+            setSingleValueProperty(kABPersonNoteProperty, NSString(optionalString: newValue))
         }
     }
     
@@ -951,12 +951,13 @@ private func convertRecordsToPersons(records : [ABRecord]?) -> [SwiftAddressBook
 //MARK: some more handy methods
 
 extension NSString {
-    convenience init?(string : String?) {
-        if string == nil {
+    
+    convenience init?(optionalString : String?) {
+        if optionalString == nil {
             self.init()
             return nil
         }
-        self.init(string: string!)
+        self.init(string: optionalString!)
     }
 }
 
