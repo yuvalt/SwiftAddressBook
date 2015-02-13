@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/SocialbitGmbH/SwiftAddressBook"
   s.license          = 'GPLV3'
   s.author           = { "Tassilo Karge" => "tassilo.karge@socialbit.de" }
-  s.source           = { :git => "https://github.com/SocialbitGmbH/SwiftAddressBook.git", :tag => "v0.1" }
+  s.source           = { :git => "https://github.com/SocialbitGmbH/SwiftAddressBook.git", :tag => "0.1.0" }
   s.social_media_url = 'https://twitter.com/socialbit_de'
 
   s.platform     = :ios, '8.0'
