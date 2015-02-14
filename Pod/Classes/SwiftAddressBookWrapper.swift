@@ -383,6 +383,12 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return SwiftAddressBookCompositeNameFormat(format: ABPersonGetCompositeNameFormatForRecord(internalRecord))
         }
     }
+
+    public var compositeName : String? {
+        get {
+            return ABRecordCopyCompositeName(internalRecord)?.takeRetainedValue()
+        }
+    }
     
     public var firstName : String? {
         get {
