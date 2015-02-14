@@ -34,7 +34,23 @@ Complete wrapper for the ABAddressBook C-Framework for iOS, written in Swift to 
         NSLog("%@", person.phoneNumbers?.map( {$0.value} ))
       }
     }
-  
+
+Create Contacts
+
+    var person = SwiftAddressBookPerson.create()
+    person.firstName = "John"
+    person.lastName = "Doe"
+    person.organization = "ACME, Inc."
+    
+    var email = MultivalueEntry(value: "someone@gmail.com", label: "home", id: 0)
+    person.emails = [email]
+    
+    var phone = MultivalueEntry(value: "(555) 555-5555", label: "mobile", id: 0)
+    person.phoneNumbers = [phone]
+    
+    swiftAddressBook?.addRecord(person)
+    swiftAddressBook?.save()
+
   Complicated Swift typecasting to NS-..., thousand times of unwrapping optionals, figuring out which constant is the key to your person property, distinguishing between group, source or person - nothing that you have to deal with any more
 
 ## Usage
