@@ -23,7 +23,6 @@ class TableViewController: UITableViewController {
             if b {
                 
                 //to test adding a new person uncomment the following 
-                //(not yet working if SwiftAddressBook is used as a pod, for some unknown reason):
                 /*
                 var person = SwiftAddressBookPerson.create()
                 person.firstName = "newTestuserFirstname"

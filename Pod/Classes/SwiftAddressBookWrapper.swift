@@ -690,15 +690,20 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
         
         var abmv : ABMutableMultiValue? = nil
         
+        /* make mutable copy to be able to update multivalue */
         if let oldValue : ABMultiValue = extractProperty(key) {
-            abmv = ABMultiValueCreateMutableCopy(extractProperty(key)).takeRetainedValue()
-        }
-        else {
-            abmv = ABMultiValueCreateMutable(ABPersonGetTypeOfProperty(key)).takeRetainedValue()
+            abmv = ABMultiValueCreateMutableCopy(oldValue)?.takeRetainedValue()
         }
         
-        let abMultivalue: ABMutableMultiValue? = abmv
+        var abmv2 : ABMutableMultiValue? = abmv
         
+        /* initialize abmv for sure */
+        if abmv2 == nil {
+            abmv2 = ABMultiValueCreateMutable(ABPersonGetTypeOfProperty(key)).takeRetainedValue()
+        }
+        
+        let abMultivalue: ABMutableMultiValue = abmv2!
+                
         var identifiers = Array<Int>()
         
         for i : Int in 0..<(ABMultiValueGetCount(abMultivalue)) {
