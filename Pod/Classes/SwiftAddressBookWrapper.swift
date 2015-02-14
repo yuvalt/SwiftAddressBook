@@ -384,6 +384,12 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
         }
     }
     
+    public var compositeName : String? {
+		get{
+			return ABRecordCopyCompositeName(self).takeRetainedValue()
+		}
+	}
+    
     public var firstName : String? {
         get {
             return extractProperty(kABPersonFirstNameProperty)
