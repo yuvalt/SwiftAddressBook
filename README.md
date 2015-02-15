@@ -13,45 +13,49 @@ Complete wrapper for the ABAddressBook C-Framework for iOS, written in Swift to 
   
   Here´s how you would access ABAddressBook via SwiftAddressBook:
   
-  Request access
-  
-    swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
-        if success {
-          //do something with swiftAddressBook
-        }
-        else {
-          //no success. Optionally evaluate error
-        }
-      })
-  
-  Use Addressbook (e.g. get array of all people and log their phone numbers)
-  
-    if let people = swiftAddressBook?.allPeople {
-      for person in people {
-        //person.phoneNumbers is a "multivalue" entry
-        //so you get an array of MultivalueEntrys
-        //see MultivalueEntry in SwiftAddressBook
-        NSLog("%@", person.phoneNumbers?.map( {$0.value} ))
+  1. Request access
+  ```Swift
+  swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
+      if success {
+        //do something with swiftAddressBook
       }
-    }
-
-Create Contacts
-
-    var person = SwiftAddressBookPerson.create()
-    person.firstName = "John"
-    person.lastName = "Doe"
-    person.organization = "ACME, Inc."
-    
-    var email = MultivalueEntry(value: "someone@gmail.com", label: "home", id: 0)
-    person.emails = [email]
-    
-    var phone = MultivalueEntry(value: "(555) 555-5555", label: "mobile", id: 0)
-    person.phoneNumbers = [phone]
-    
-    swiftAddressBook?.addRecord(person)
-    swiftAddressBook?.save()
-
-  Complicated Swift typecasting to NS-..., thousand times of unwrapping optionals, figuring out which constant is the key to your person property, distinguishing between group, source or person - nothing that you have to deal with any more
+      else {
+        //no success. Optionally evaluate error
+      }
+  })
+  ```
+  
+  2. Use Addressbook: 
+    - Get array of all people and log their phone numbers)
+      ```Swift
+      if let people = swiftAddressBook?.allPeople {
+          for person in people {
+            //person.phoneNumbers is a "multivalue" entry
+            //so you get an array of MultivalueEntrys
+            //see MultivalueEntry in SwiftAddressBook
+            NSLog("%@", person.phoneNumbers?.map( {$0.value} ))
+          }
+      }
+      ```
+      
+    - Create Contacts
+      ```Swift
+      var person = SwiftAddressBookPerson.create()
+      person.firstName = "John"
+      person.lastName = "Doe"
+      person.organization = "ACME, Inc."
+      
+      var email = MultivalueEntry(value: "someone@gmail.com", label: "home", id: 0)
+      person.emails = [email]
+      
+      var phone = MultivalueEntry(value: "(555) 555-5555", label: "mobile", id: 0)
+      person.phoneNumbers = [phone]
+      
+      swiftAddressBook?.addRecord(person)
+      swiftAddressBook?.save()
+      ```
+      
+Complicated Swift typecasting to NS-..., thousand times of unwrapping optionals, figuring out which constant is the key to your person property, distinguishing between group, source or person - nothing that you have to deal with any more
 
 ## Usage
 
