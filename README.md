@@ -11,7 +11,9 @@ Complete wrapper for the ABAddressBook C-Framework for iOS, written in Swift to 
 
   It is tedious and requires very much reading in the documentation if you want to understand the ABAddressBook in iOS. To provide a solution, this wrapper uses Swift, which is strong-typed (unlike c). It also circumvents the use of unsafe c-pointers when accessing ABAddressBook from Swift, by directly casting them to the correct type. All properties, previously only available via the correct key, can now be accessed conveniently via variables.
   
-  Here´s how you would access ABAddressBook via SwiftAddressBook:
+  Here´s how you would access ABAddressBook via SwiftAddressBook: [How To](https://github.com/SocialbitGmbH/SwiftAddressBook/wiki/How-To)
+  
+  Some minimal examples below:
   
   1. Request access
   ```Swift
@@ -30,9 +32,6 @@ Complete wrapper for the ABAddressBook C-Framework for iOS, written in Swift to 
       ```Swift
       if let people = swiftAddressBook?.allPeople {
           for person in people {
-            //person.phoneNumbers is a "multivalue" entry
-            //so you get an array of MultivalueEntrys
-            //see MultivalueEntry in SwiftAddressBook
             NSLog("%@", person.phoneNumbers?.map( {$0.value} ))
           }
       }
@@ -42,14 +41,9 @@ Complete wrapper for the ABAddressBook C-Framework for iOS, written in Swift to 
       ```Swift
       var person = SwiftAddressBookPerson.create()
       person.firstName = "John"
-      person.lastName = "Doe"
-      person.organization = "ACME, Inc."
       
       var email = MultivalueEntry(value: "someone@gmail.com", label: "home", id: 0)
       person.emails = [email]
-      
-      var phone = MultivalueEntry(value: "(555) 555-5555", label: "mobile", id: 0)
-      person.phoneNumbers = [phone]
       
       swiftAddressBook?.addRecord(person)
       swiftAddressBook?.save()
