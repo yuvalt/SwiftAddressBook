@@ -251,6 +251,9 @@ public class SwiftAddressBookGroup : SwiftAddressBookRecord {
         get {
             return ABRecordCopyValue(internalRecord, kABGroupNameProperty).takeRetainedValue() as CFString
         }
+        set {
+            ABRecordSetValue(internalRecord, kABGroupNameProperty, newValue, nil)
+        }
     }
     
     public class func create() -> SwiftAddressBookGroup {

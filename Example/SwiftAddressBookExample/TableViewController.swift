@@ -39,6 +39,22 @@ class TableViewController: UITableViewController {
 
                 self.people = swiftAddressBook?.allPeople
                 
+                //to test adding a new group uncomment the following
+                /*
+                
+                var group = SwiftAddressBookGroup.create()
+                
+                group.name = "Testgroup"
+                
+                //add every second person
+                for var i = 0; i < self.people?.count; i += 2 {
+                    group.addMember(self.people![i])
+                }
+                swiftAddressBook?.addRecord(group)
+                swiftAddressBook?.save()
+                
+                */
+                
                 self.numbers = self.people?.map { (p) -> (Array<String?>?) in
                     return p.phoneNumbers?.map { return $0.value }
                 }
