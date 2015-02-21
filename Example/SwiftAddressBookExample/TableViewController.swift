@@ -11,6 +11,8 @@ import SwiftAddressBook
 
 class TableViewController: UITableViewController {
 
+    
+    var groups : [SwiftAddressBookGroup]? = []
     var people : [SwiftAddressBookPerson]? = []
     var names : [String?]? = []
     var numbers : [Array<String?>?]? = []
@@ -41,19 +43,32 @@ class TableViewController: UITableViewController {
                 
                 //to test adding a new group uncomment the following
                 /*
-                
                 var group = SwiftAddressBookGroup.create()
                 
                 group.name = "Testgroup"
+                
+                swiftAddressBook?.addRecord(group)
+                
+                //it is necessary to save before adding people
+                swiftAddressBook?.save()
                 
                 //add every second person
                 for var i = 0; i < self.people?.count; i += 2 {
                     group.addMember(self.people![i])
                 }
-                swiftAddressBook?.addRecord(group)
-                swiftAddressBook?.save()
                 
+                swiftAddressBook?.save()
                 */
+
+                
+                //save objects for tableview
+                
+                let sources = swiftAddressBook?.allSources
+                for source in sources! {
+                    println("\(source.sourceName)")
+                    let newGroups = swiftAddressBook!.allGroupsInSource(source)!
+                    self.groups = self.groups! + newGroups
+                }
                 
                 self.numbers = self.people?.map { (p) -> (Array<String?>?) in
                     return p.phoneNumbers?.map { return $0.value }
@@ -65,15 +80,11 @@ class TableViewController: UITableViewController {
                     return p.birthday
                 }
                 
-                self.tableView.reloadData()
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                })
             }
         }
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,30 +95,51 @@ class TableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 1
+        return groups == nil ? 1 : groups!.count+1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return people == nil ? 0 : people!.count
+        if groups == nil || section == groups?.count {
+            return people == nil ? 0 : people!.count
+        }
+        else {
+            if let members = groups![section].allMembers {
+                return members.count
+            }
+            else {
+                return 0
+            }
+        }
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("addressCell", forIndexPath: indexPath) as AddressViewCell
-
-        // Configure the cell...
-        cell.nameLabel.text = people![indexPath.row].compositeName
-        cell.birthdateLabel.text = birthdates![indexPath.row]?.description
-        cell.phoneNumberLabel.text = numbers![indexPath.row]?.first?
+        
+        if groups == nil || indexPath.section == groups?.count {
+            // Configure the cell...
+            cell.nameLabel.text = people![indexPath.row].compositeName
+            cell.birthdateLabel.text = birthdates![indexPath.row]?.description
+            cell.phoneNumberLabel.text = numbers![indexPath.row]?.first?
+        }
+        else {
+            cell.nameLabel.text = groups![indexPath.section].allMembers![indexPath.row].compositeName
+        }
 
         return cell
     }
     
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if groups == nil || section == groups?.count {
+            return "All people"
+        }
+        else {
+            return groups![section].name
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

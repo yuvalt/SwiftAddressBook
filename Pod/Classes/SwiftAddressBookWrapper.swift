@@ -236,8 +236,16 @@ public class SwiftAddressBookSource : SwiftAddressBookRecord {
         }
     }
     
-    public var sourceName : String {
-        return ABRecordCopyValue(internalRecord, kABSourceNameProperty).takeRetainedValue() as CFString
+    public var sourceName : String? {
+        get {
+            let value: AnyObject? = ABRecordCopyValue(internalRecord, kABSourceNameProperty)?.takeRetainedValue()
+            if value != nil {
+                return value as CFString
+            }
+            else {
+                return nil
+            }
+        }
     }
 }
 
@@ -247,9 +255,15 @@ public class SwiftAddressBookSource : SwiftAddressBookRecord {
 
 public class SwiftAddressBookGroup : SwiftAddressBookRecord {
     
-    public var name : String {
+    public var name : String? {
         get {
-            return ABRecordCopyValue(internalRecord, kABGroupNameProperty).takeRetainedValue() as CFString
+            let value: AnyObject? = ABRecordCopyValue(internalRecord, kABGroupNameProperty)?.takeRetainedValue() as CFString
+            if value != nil {
+                return value as CFString
+            }
+            else {
+                return nil
+            }
         }
         set {
             ABRecordSetValue(internalRecord, kABGroupNameProperty, newValue, nil)
@@ -266,7 +280,7 @@ public class SwiftAddressBookGroup : SwiftAddressBookRecord {
     
     public var allMembers : [SwiftAddressBookPerson]? {
         get {
-            return convertRecordsToPersons(ABGroupCopyArrayOfAllMembers(internalRecord).takeRetainedValue())
+            return convertRecordsToPersons(ABGroupCopyArrayOfAllMembers(internalRecord)?.takeRetainedValue())
         }
     }
     
@@ -979,7 +993,9 @@ private func convertRecordsToGroups(records : [ABRecord]?) -> [SwiftAddressBookG
 }
 
 private func convertRecordsToPersons(records : [ABRecord]?) -> [SwiftAddressBookPerson]? {
-    let swiftRecords = records?.map {(record : ABRecord) -> SwiftAddressBookPerson in return SwiftAddressBookRecord(record: record).convertToPerson()!}
+    let swiftRecords = records?.map {(record : ABRecord) -> SwiftAddressBookPerson in
+        return SwiftAddressBookRecord(record: record).convertToPerson()!
+    }
     return swiftRecords
 }
 
