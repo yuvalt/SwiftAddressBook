@@ -62,7 +62,7 @@ it, simply add the following line to your Podfile:
 
     pod "SwiftAddressBook"
 
-If you don´t want to use CocoaPods, just copy SwiftAddressBookWrapper.swift into your project
+If you don´t want to use CocoaPods, or maintain iOS7 compatibility, just copy SwiftAddressBookWrapper.swift into your project
 
 
 ## License  
