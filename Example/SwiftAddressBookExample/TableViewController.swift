@@ -65,7 +65,7 @@ class TableViewController: UITableViewController {
                 
                 let sources = swiftAddressBook?.allSources
                 for source in sources! {
-                    println("\(source.sourceName)")
+                    //println("\(source.sourceName)") //TODO: This throws an exception
                     let newGroups = swiftAddressBook!.allGroupsInSource(source)!
                     self.groups = self.groups! + newGroups
                 }

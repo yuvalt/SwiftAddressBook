@@ -1,11 +1,5 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, '6.0'
-
-target 'SwiftAddressBookExample' do
-	pod "SwiftAddressBook", :path => "../"
-end
-
-target 'SwiftAddressBookExampleTests' do
-
-end
+platform :ios, '8.0'
+link_with "SwiftAddressBookExample", "SwiftAddressBookTests"
+use_frameworks!
+pod "SwiftAddressBook", :path => "../"
 
