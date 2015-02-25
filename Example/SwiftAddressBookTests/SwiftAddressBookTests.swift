@@ -27,6 +27,9 @@ class SwiftAddressBookTests: XCTestCase {
     }
     
     func testGetAllPeople() {
+
+		let testExpectation = expectationWithDescription("testAddRemovePerson")
+
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
             if success {
@@ -35,11 +38,18 @@ class SwiftAddressBookTests: XCTestCase {
                 XCTAssert(people?.count > 0, "Unable to get people from address book")
             } else {
                 XCTAssertNotNil(error, self.accessErrorNil)
-            }
-        })
+			}
+			
+			testExpectation.fulfill()
+		})
+
+		waitForExpectationsWithTimeout(1.0, handler: nil)
     }
-    
+
     func testSearchPeople() {
+
+		let testExpectation = expectationWithDescription("testAddRemovePerson")
+
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
             if success {
@@ -47,11 +57,18 @@ class SwiftAddressBookTests: XCTestCase {
                 XCTAssert(people?.count == 1, "Failed to find people")
             } else {
                 XCTAssertNotNil(error, self.accessErrorNil)
-            }
-        })
+			}
+			
+			testExpectation.fulfill()
+		})
+
+		waitForExpectationsWithTimeout(1.0, handler: nil)
     }
-    
+
     func testAddGetPerson() {
+
+		let testExpectation = expectationWithDescription("testAddRemovePerson")
+
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
             if success {
@@ -89,15 +106,22 @@ class SwiftAddressBookTests: XCTestCase {
                         XCTAssert(address[SwiftAddressBookAddressProperty.state] as? NSString == "CA", "Incorrect state")
                         XCTAssert(address[SwiftAddressBookAddressProperty.zip] as? NSString == "94010", "Incorrect zip")
                     }
-                    XCTAssert(person.birthday == self.getDate(1978, 1, 20), "Incorrect birthday (was \(person.birthday))")
+                    XCTAssert(person.birthday! == self.getDate(1978, 1, 20), "Incorrect birthday (was \(person.birthday))")
                 }
             } else {
                 XCTAssertNotNil(error, self.accessErrorNil)
-            }
-        })
+			}
+			
+			testExpectation.fulfill()
+		})
+
+		waitForExpectationsWithTimeout(1.0, handler: nil)
     }
-    
+
     func testAddRemovePerson() {
+
+		let testExpectation = expectationWithDescription("testAddRemovePerson")
+
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
             if success {
@@ -140,10 +164,17 @@ class SwiftAddressBookTests: XCTestCase {
             } else {
                 XCTAssertNotNil(error, self.accessErrorNil)
             }
+
+			testExpectation.fulfill()
         })
+
+		waitForExpectationsWithTimeout(1.0, handler: nil)
     }
     
     func testAddEditRemovePerson() {
+
+		let testExpectation = expectationWithDescription("testAddRemovePerson")
+
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
             if success {
@@ -204,10 +235,14 @@ class SwiftAddressBookTests: XCTestCase {
                 }
             } else {
                 XCTAssertNotNil(error, self.accessErrorNil)
-            }
-        })
+			}
+			
+			testExpectation.fulfill()
+		})
+
+		waitForExpectationsWithTimeout(1.0, handler: nil)
     }
-    
+
     
     //MARK: - Helper funtions
     
