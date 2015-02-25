@@ -701,10 +701,13 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
     }
     
     private func setMultivalueProperty<T : AnyObject>(key : ABPropertyID,_ multivalue : Array<MultivalueEntry<T>>?) {
-        if(multivalue == nil) {
-            ABRecordSetValue(internalRecord, key, ABMultiValueCreateMutable(ABMultiValueGetPropertyType(extractProperty(key))).takeRetainedValue(), nil)
-        }
-        
+		if(multivalue == nil) {
+			let emptyMultivalue = ABMultiValueCreateMutable(ABPersonGetTypeOfProperty(key)).takeRetainedValue()
+			//TODO: handle possible error
+			let error = errorIfNoSuccess { ABRecordSetValue(self.internalRecord, key, emptyMultivalue, $0) }
+			return
+		}
+
         var abmv : ABMutableMultiValue? = nil
         
         /* make mutable copy to be able to update multivalue */
