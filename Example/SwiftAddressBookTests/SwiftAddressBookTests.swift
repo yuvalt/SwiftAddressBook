@@ -28,7 +28,7 @@ class SwiftAddressBookTests: XCTestCase {
     
     func testGetAllPeople() {
 
-		let testExpectation = expectationWithDescription("testAddRemovePerson")
+		let testExpectation = expectationWithDescription("testGetAllPeople")
 
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
@@ -48,7 +48,7 @@ class SwiftAddressBookTests: XCTestCase {
 
     func testSearchPeople() {
 
-		let testExpectation = expectationWithDescription("testAddRemovePerson")
+		let testExpectation = expectationWithDescription("testSearchPeople")
 
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
@@ -65,9 +65,9 @@ class SwiftAddressBookTests: XCTestCase {
 		waitForExpectationsWithTimeout(1.0, handler: nil)
     }
 
-    func testAddGetPerson() {
+    func testGetPerson() {
 
-		let testExpectation = expectationWithDescription("testAddRemovePerson")
+		let testExpectation = expectationWithDescription("testGetPerson")
 
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
@@ -173,7 +173,7 @@ class SwiftAddressBookTests: XCTestCase {
     
     func testAddEditRemovePerson() {
 
-		let testExpectation = expectationWithDescription("testAddRemovePerson")
+		let testExpectation = expectationWithDescription("testAddEditRemovePerson")
 
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
