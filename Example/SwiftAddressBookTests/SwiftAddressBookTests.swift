@@ -9,6 +9,7 @@
 import UIKit
 import XCTest
 import SwiftAddressBook
+import AddressBook
 
 //**** Run the example project first, to accept address book access ****
 class SwiftAddressBookTests: XCTestCase {
@@ -43,7 +44,7 @@ class SwiftAddressBookTests: XCTestCase {
 			testExpectation.fulfill()
 		})
 
-		waitForExpectationsWithTimeout(1.0, handler: nil)
+		waitForExpectationsWithTimeout(3.0, handler: nil)
     }
 
     func testSearchPeople() {
@@ -62,7 +63,7 @@ class SwiftAddressBookTests: XCTestCase {
 			testExpectation.fulfill()
 		})
 
-		waitForExpectationsWithTimeout(1.0, handler: nil)
+		waitForExpectationsWithTimeout(3.0, handler: nil)
     }
 
     func testGetPerson() {
@@ -72,9 +73,9 @@ class SwiftAddressBookTests: XCTestCase {
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
             if success {
-                let person = swiftAddressBook?.allPeople?.filter({ p in p.firstName == "Kate" }).first
-                XCTAssertNotNil(person, "Failed to get person 1 \"Kate Bell\" from sample address book")
-                if let person = person {
+                let optionalPerson = swiftAddressBook?.allPeople?.filter({ p in p.firstName == "Kate" }).first
+                XCTAssertNotNil(optionalPerson, "Failed to get person 1 \"Kate Bell\" from sample address book")
+                if let person = optionalPerson {
                     XCTAssert(person.firstName == "Kate", "First name was wrong")
                     XCTAssert(person.lastName == "Bell", "Last name was wrong")
                     XCTAssert(person.jobTitle == "Producer", "Job Title was wrong")
@@ -82,17 +83,17 @@ class SwiftAddressBookTests: XCTestCase {
                     XCTAssert(person.phoneNumbers != nil, "Phone numbers collection was nil")
                     if let phoneNumbers = person.phoneNumbers {
                         XCTAssert(phoneNumbers.count == 2, "Wrong phone number count")
-                        XCTAssert(phoneNumbers[0].label == "mobile", "Incorrect first phone label")
+                        XCTAssert(phoneNumbers[0].label == kABPersonPhoneMobileLabel, "Incorrect first phone label")
                         XCTAssert(phoneNumbers[0].value == "(555) 564-8583", "Incorrect first phone number")
-                        XCTAssert(phoneNumbers[1].label == "main", "Incorrect second phone label")
+                        XCTAssert(phoneNumbers[1].label == kABPersonPhoneMainLabel, "Incorrect second phone label")
                         XCTAssert(phoneNumbers[1].value == "(415) 555-3695", "Incorrect second phone number")
                     }
                     XCTAssert(person.phoneNumbers != nil, "Email collection was nil")
                     if let emails = person.emails {
                         XCTAssert(emails.count == 2, "Wrong email count")
-                        XCTAssert(emails[0].label == "work", "Incorrect first email label")
+                        XCTAssert(emails[0].label == kABWorkLabel, "Incorrect first email label")
                         XCTAssert(emails[0].value == "kate-bell@mac.com", "Incorrect first email")
-                        XCTAssert(emails[1].label == "work", "Incorrect second email label")
+                        XCTAssert(emails[1].label == kABWorkLabel, "Incorrect second email label")
                         XCTAssert(emails[1].value == "www.icloud.com", "Incorrect second email")
                     }
                     XCTAssert(person.addresses != nil, "Address collection was nil")
@@ -106,7 +107,8 @@ class SwiftAddressBookTests: XCTestCase {
                         XCTAssert(address[SwiftAddressBookAddressProperty.state] as? NSString == "CA", "Incorrect state")
                         XCTAssert(address[SwiftAddressBookAddressProperty.zip] as? NSString == "94010", "Incorrect zip")
                     }
-                    XCTAssert(person.birthday! == self.getDate(1978, 1, 20), "Incorrect birthday (was \(person.birthday))")
+					let date = self.getDate(1978, 01, 20).dateByAddingTimeInterval(13*60*60)
+                    XCTAssert(person.birthday! == date, "Incorrect birthday (was \(person.birthday))")
                 }
             } else {
                 XCTAssertNotNil(error, self.accessErrorNil)
@@ -115,7 +117,7 @@ class SwiftAddressBookTests: XCTestCase {
 			testExpectation.fulfill()
 		})
 
-		waitForExpectationsWithTimeout(1.0, handler: nil)
+		waitForExpectationsWithTimeout(3.0, handler: nil)
     }
 
     func testAddRemovePerson() {
@@ -125,9 +127,9 @@ class SwiftAddressBookTests: XCTestCase {
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
             if success {
-                var person: SwiftAddressBookPerson? = SwiftAddressBookPerson.create()
+                var optionalPerson: SwiftAddressBookPerson? = SwiftAddressBookPerson.create()
                 var timeStamp = self.getDateTimestamp()
-                if let person = person {
+                if let person = optionalPerson {
                     
                     //TODO: test ALL fields
                     person.firstName = "Darth" + timeStamp
@@ -150,13 +152,13 @@ class SwiftAddressBookTests: XCTestCase {
                     swiftAddressBook?.save()
                 }
                 
-                person = swiftAddressBook?.allPeople?.filter({ p in p.firstName == "Darth" + timeStamp }).first
-                XCTAssertNotNil(person, "Couldn't find newly added person")
+                optionalPerson = swiftAddressBook?.allPeople?.filter({ p in p.firstName == "Darth" + timeStamp }).first
+                XCTAssertNotNil(optionalPerson, "Couldn't find newly added person")
                 
-                if let person = person {
-                    XCTAssert(person.firstName == "Test", "Failed to save first name")
-                    XCTAssert(person.lastName == "Person", "Failed to save last name")
-                    XCTAssert(person.nickname == "Dude", "Failed to save nickname")
+                if let person = optionalPerson {
+                    XCTAssert(person.firstName == "Darth" + timeStamp, "Failed to save first name")
+                    XCTAssert(person.lastName == "Vader" + timeStamp, "Failed to save last name")
+                    XCTAssert(person.nickname == "Anakin" + timeStamp, "Failed to save nickname")
                     
                     swiftAddressBook?.removeRecord(person)
                     swiftAddressBook?.save()
@@ -168,7 +170,7 @@ class SwiftAddressBookTests: XCTestCase {
 			testExpectation.fulfill()
         })
 
-		waitForExpectationsWithTimeout(1.0, handler: nil)
+		waitForExpectationsWithTimeout(3.0, handler: nil)
     }
     
     func testAddEditRemovePerson() {
@@ -178,19 +180,19 @@ class SwiftAddressBookTests: XCTestCase {
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
             if success {
-                var person: SwiftAddressBookPerson? = SwiftAddressBookPerson.create()
+                var optionalPerson: SwiftAddressBookPerson? = SwiftAddressBookPerson.create()
                 var timeStamp = self.getDateTimestamp()
-                if let person = person {
+                if let person = optionalPerson {
                     person.firstName = "Test" + timeStamp;
                     swiftAddressBook?.addRecord(person)
                     swiftAddressBook?.save()
                 }
                 
-                person = swiftAddressBook?.allPeople?.filter({ p in p.firstName == "Test" + timeStamp }).first
-                XCTAssertNotNil(person, "Couldn't find newly added person")
+                optionalPerson = swiftAddressBook?.allPeople?.filter({ p in p.firstName == "Test" + timeStamp }).first
+                XCTAssertNotNil(optionalPerson, "Couldn't find newly added person")
                 
-                if person != nil {
-                    if let person = person {
+                if optionalPerson != nil {
+                    if let person = optionalPerson {
                         //TODO: test ALL fields
                         person.firstName = "Darth" + timeStamp
                         person.lastName = "Vader" + timeStamp
@@ -212,10 +214,10 @@ class SwiftAddressBookTests: XCTestCase {
                         swiftAddressBook?.save()
                     }
                     
-                    person = swiftAddressBook?.allPeople?.filter({ p in p.firstName == "Darth" + timeStamp }).first
-                    XCTAssertNotNil(person, "Couldn't find newly edited person")
+                    optionalPerson = swiftAddressBook?.allPeople?.filter({ p in p.firstName == "Darth" + timeStamp }).first
+                    XCTAssertNotNil(optionalPerson, "Couldn't find newly edited person")
                     
-                    if let person = person {
+                    if let person = optionalPerson {
                         
                         XCTAssert(person.firstName == "Darth" + timeStamp, "Incorrect first name")
                         XCTAssert(person.lastName == "Vader" + timeStamp, "Incorrect last name")
@@ -240,7 +242,7 @@ class SwiftAddressBookTests: XCTestCase {
 			testExpectation.fulfill()
 		})
 
-		waitForExpectationsWithTimeout(1.0, handler: nil)
+		waitForExpectationsWithTimeout(3.0, handler: nil)
     }
 
     
