@@ -66,9 +66,9 @@ class SwiftAddressBookTests: XCTestCase {
 		waitForExpectationsWithTimeout(3.0, handler: nil)
     }
 
-    func testAddGetPerson() {
+    func testGetPerson() {
 
-		let testExpectation = expectationWithDescription("testAddGetPerson")
+		let testExpectation = expectationWithDescription("testGetPerson")
 
         swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
             XCTAssertTrue(success, self.accessError)
