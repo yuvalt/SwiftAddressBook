@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftAddressBook
+import AddressBook
 
 class TableViewController: UITableViewController {
 
@@ -25,7 +26,8 @@ class TableViewController: UITableViewController {
             if b {
                 
                 //to test adding a new person uncomment the following 
-                /*
+
+				/*
                 var person = SwiftAddressBookPerson.create()
                 person.firstName = "newTestuserFirstname"
                 person.lastName = "newTestuserLastname"
@@ -33,11 +35,18 @@ class TableViewController: UITableViewController {
                 
                 var phone = MultivalueEntry(value: "newTestuserNumber", label: "mobile", id: 1)
                 person.phoneNumbers = [phone]
+
+				var addresses : Array<MultivalueEntry<Dictionary<SwiftAddressBookAddressProperty,AnyObject>>>? = nil
+				let address1 = [SwiftAddressBookAddressProperty.street:"testStreet" as AnyObject, SwiftAddressBookAddressProperty.city:"testCity"];
+				let address2 = [SwiftAddressBookAddressProperty.street:"testStreet2" as AnyObject, SwiftAddressBookAddressProperty.city:"testCity2"];
+				addresses = [MultivalueEntry(value: address1, label: kABWorkLabel, id: 0),MultivalueEntry(value: address2, label: kABHomeLabel, id: 0)];
+
+				person.addresses = addresses;
                 
                 swiftAddressBook?.addRecord(person)
                 swiftAddressBook?.save()
+				*/
 
-                */
 
                 self.people = swiftAddressBook?.allPeople
                 
