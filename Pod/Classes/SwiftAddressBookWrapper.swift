@@ -377,7 +377,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
         return errorIfNoSuccess { ABPersonRemoveImageData(self.internalRecord, $0) }
     }
     
-    public var allLinkedPeople : [SwiftAddressBookPerson]? {
+    public var allLinkedPeople : Array<SwiftAddressBookPerson>? {
         get {
             return convertRecordsToPersons(ABPersonCopyArrayOfAllLinkedPeople(internalRecord).takeRetainedValue() as CFArray)
         }
@@ -562,7 +562,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
     
     public var addresses : Array<MultivalueEntry<Dictionary<SwiftAddressBookAddressProperty,AnyObject>>>? {
         get {
-            return extractMultivalueProperty(kABPersonAddressProperty)
+			return extractMultivalueDictionaryProperty(kABPersonAddressProperty, keyConverter: {SwiftAddressBookAddressProperty(property: $0 as NSString)}, valueConverter: {$0})
         }
         set {
             setMultivalueDictionaryProperty(kABPersonAddressProperty, newValue, { NSString(string: $0.abAddressProperty) }, {$0} )
@@ -598,16 +598,16 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
     
     public var instantMessage : Array<MultivalueEntry<Dictionary<SwiftAddressBookInstantMessagingProperty,String>>>? {
         get {
-            return extractMultivalueProperty(kABPersonInstantMessageProperty)
+            return extractMultivalueDictionaryProperty(kABPersonInstantMessageProperty, keyConverter: {SwiftAddressBookInstantMessagingProperty(property: $0 as NSString)}, valueConverter: {$0})
         }
         set {
             setMultivalueDictionaryProperty(kABPersonInstantMessageProperty, newValue, keyConverter: { NSString(string: $0.abInstantMessageProperty) }, valueConverter: { NSString(string: $0) })
         }
     }
     
-    public var socialProfiles : [MultivalueEntry<[SwiftAddressBookSocialProfileProperty:String]>]? {
+    public var socialProfiles : Array<MultivalueEntry<Dictionary<SwiftAddressBookSocialProfileProperty,String>>>? {
         get {
-            return extractMultivalueProperty(kABPersonSocialProfileProperty)
+            return extractMultivalueDictionaryProperty(kABPersonSocialProfileProperty, keyConverter: {SwiftAddressBookSocialProfileProperty(property: $0 as NSString)}, valueConverter: {$0})
         }
         set {
             setMultivalueDictionaryProperty(kABPersonSocialProfileProperty, newValue, keyConverter: { NSString(string: $0.abSocialProfileProperty) }, valueConverter:  { NSString(string : $0) } )
@@ -674,8 +674,38 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
             return nil
         }
     }
+
+	private func extractMultivalueDictionaryProperty<T : NSCopying, U, V, W>(propertyName : ABPropertyID, keyConverter : (T) -> V, valueConverter : (U) -> W ) -> Array<MultivalueEntry<Dictionary<V, W>>>? {
+		var property : Array<MultivalueEntry<NSDictionary>>? = extractMultivalueProperty(propertyName)
+		if let array = property {
+			var array2 : Array<MultivalueEntry<Dictionary<V, W>>> = []
+			for oldValue in array {
+				let mv = MultivalueEntry(value: convertNSDictionary(oldValue.value, keyConverter: keyConverter, valueConverter: valueConverter)!, label: oldValue.label, id: oldValue.id)
+				array2.append(mv);
+			}
+			return array2
+		}
+		else {
+			return nil
+		}
+	}
+
+	private func convertNSDictionary<T : NSCopying, U, V, W>(d : NSDictionary?, keyConverter : (T) -> V, valueConverter : (U) -> W ) -> Dictionary<V, W>? {
+		if let d2 = d {
+			var dict = Dictionary<V,W>()
+			for key in d2.allKeys as Array<T> {
+				let newKey = keyConverter(key)
+				let newValue = valueConverter(d2[key] as U)
+				dict[newKey] = newValue
+			}
+			return dict
+		}
+		else {
+			return nil
+		}
+	}
     
-    private func convertDictionary<T,U, V : AnyObject, W : AnyObject where V : Hashable>(d : Dictionary<T,U>?, keyConverter : (T) -> V, valueConverter : (U) -> W ) -> NSDictionary? {
+    private func convertDictionary<T, U, V : AnyObject, W : AnyObject where V : Hashable>(d : Dictionary<T,U>?, keyConverter : (T) -> V, valueConverter : (U) -> W ) -> NSDictionary? {
         if let d2 = d {
             var dict = Dictionary<V,W>()
             for key in d2.keys {
@@ -704,7 +734,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
     
     private func setMultivalueProperty<T : AnyObject>(key : ABPropertyID,_ multivalue : Array<MultivalueEntry<T>>?) {
 		if(multivalue == nil) {
-			let emptyMultivalue = ABMultiValueCreateMutable(ABPersonGetTypeOfProperty(key)).takeRetainedValue()
+			let emptyMultivalue: ABMutableMultiValue = ABMultiValueCreateMutable(ABPersonGetTypeOfProperty(key)).takeRetainedValue()
 			//TODO: handle possible error
 			let error = errorIfNoSuccess { ABRecordSetValue(self.internalRecord, key, emptyMultivalue, $0) }
 			return

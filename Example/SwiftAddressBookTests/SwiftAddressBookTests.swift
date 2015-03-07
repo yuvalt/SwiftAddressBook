@@ -13,6 +13,8 @@ import AddressBook
 
 //**** Run the example project first, to accept address book access ****
 class SwiftAddressBookTests: XCTestCase {
+
+	let waitTime = 3.0
     
     let accessError = "Address book access was not granted. Run the main application and grant access to the address book."
     let accessErrorNil = "Failed to get address book access denial error"
@@ -44,7 +46,7 @@ class SwiftAddressBookTests: XCTestCase {
 			testExpectation.fulfill()
 		})
 
-		waitForExpectationsWithTimeout(3.0, handler: nil)
+		waitForExpectationsWithTimeout(waitTime, handler: nil)
     }
 
     func testSearchPeople() {
@@ -63,7 +65,7 @@ class SwiftAddressBookTests: XCTestCase {
 			testExpectation.fulfill()
 		})
 
-		waitForExpectationsWithTimeout(3.0, handler: nil)
+		waitForExpectationsWithTimeout(waitTime, handler: nil)
     }
 
     func testGetPerson() {
@@ -99,9 +101,10 @@ class SwiftAddressBookTests: XCTestCase {
                     XCTAssert(person.addresses != nil, "Address collection was nil")
                     if let addresses = person.addresses {
                         XCTAssert(addresses.count == 1, "Wrong address count")
-                        XCTAssert(addresses[0].label == "work", "Incorrect address label")
+                        XCTAssert(addresses[0].label == kABWorkLabel, "Incorrect address label")
                         var address = addresses[0].value
-                        XCTAssert(address.count == 4, "Incorrect address value count")
+						//address dictionary contains countryCode, state, street, zip and city in this case
+                        XCTAssert(address.count == 5, "Incorrect address value count")
                         XCTAssert(address[SwiftAddressBookAddressProperty.street] as? NSString == "165 Davis Street", "Incorrect street")
                         XCTAssert(address[SwiftAddressBookAddressProperty.city] as? NSString == "Hillsborough", "Incorrect city")
                         XCTAssert(address[SwiftAddressBookAddressProperty.state] as? NSString == "CA", "Incorrect state")
@@ -117,7 +120,7 @@ class SwiftAddressBookTests: XCTestCase {
 			testExpectation.fulfill()
 		})
 
-		waitForExpectationsWithTimeout(3.0, handler: nil)
+		waitForExpectationsWithTimeout(waitTime, handler: nil)
     }
 
     func testAddRemovePerson() {
@@ -170,7 +173,7 @@ class SwiftAddressBookTests: XCTestCase {
 			testExpectation.fulfill()
         })
 
-		waitForExpectationsWithTimeout(3.0, handler: nil)
+		waitForExpectationsWithTimeout(waitTime, handler: nil)
     }
     
     func testAddEditRemovePerson() {
@@ -242,7 +245,7 @@ class SwiftAddressBookTests: XCTestCase {
 			testExpectation.fulfill()
 		})
 
-		waitForExpectationsWithTimeout(3.0, handler: nil)
+		waitForExpectationsWithTimeout(waitTime, handler: nil)
     }
 
     
