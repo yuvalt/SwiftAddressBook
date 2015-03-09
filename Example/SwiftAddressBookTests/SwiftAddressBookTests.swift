@@ -49,24 +49,6 @@ class SwiftAddressBookTests: XCTestCase {
 		waitForExpectationsWithTimeout(waitTime, handler: nil)
     }
 
-    func testSearchPeople() {
-
-		let testExpectation = expectationWithDescription("testSearchPeople")
-
-        swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
-            XCTAssertTrue(success, self.accessError)
-            if success {
-                let people = swiftAddressBook?.peopleWithName("Kate")
-                XCTAssert(people?.count == 1, "Failed to find people")
-            } else {
-                XCTAssertNotNil(error, self.accessErrorNil)
-			}
-			
-			testExpectation.fulfill()
-		})
-
-		waitForExpectationsWithTimeout(waitTime, handler: nil)
-    }
 
     func testGetPerson() {
 
@@ -216,9 +198,12 @@ class SwiftAddressBookTests: XCTestCase {
                         
                         swiftAddressBook?.save()
                     }
-                    
+
                     optionalPerson = swiftAddressBook?.allPeople?.filter({ p in p.firstName == "Darth" + timeStamp }).first
-                    XCTAssertNotNil(optionalPerson, "Couldn't find newly edited person")
+                    XCTAssertNotNil(optionalPerson, "Newly added person was not saved")
+
+					let people = swiftAddressBook?.peopleWithName("Darth")
+					XCTAssert(people?.count > 0 && people![0].firstName == "Darth" + timeStamp, "Failed to find person by searching for name")
                     
                     if let person = optionalPerson {
                         
@@ -250,7 +235,7 @@ class SwiftAddressBookTests: XCTestCase {
 
     
     //MARK: - Helper funtions
-    
+
     func getDateTimestamp() -> String {
         var formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
