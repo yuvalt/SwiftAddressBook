@@ -365,7 +365,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			let value : T? = ABMultiValueCopyValueAtIndex(multivalue, i).takeRetainedValue() as? T
 			if let v : T = value {
 				let id : Int = Int(ABMultiValueGetIdentifierAtIndex(multivalue, i))
-				let label : String = ABMultiValueCopyLabelAtIndex(multivalue, i).takeRetainedValue()
+				let label : String? = ABMultiValueCopyLabelAtIndex(multivalue, i)?.takeRetainedValue()
 				array.append(MultivalueEntry(value: v, label: label, id: id))
 			}
 		}

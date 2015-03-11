@@ -13,10 +13,10 @@ import AddressBook
 
 public struct MultivalueEntry<T> {
 	public var value : T
-	public var label : String
+	public var label : String?
 	public let id : Int
 
-	public init(value: T, label: String, id: Int) {
+	public init(value: T, label: String?, id: Int) {
 		self.value = value
 		self.label = label
 		self.id = id
