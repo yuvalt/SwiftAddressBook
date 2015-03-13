@@ -234,6 +234,90 @@ class SwiftAddressBookTests: XCTestCase {
     }
 
     
+	func testNilPropertiesAndOverridingMultivalues() {
+		swiftAddressBook?.requestAccessWithCompletion { (success, error) -> Void in
+			XCTAssertTrue(success, self.accessError)
+			if success {
+				let person = SwiftAddressBookPerson.create()
+				swiftAddressBook!.addRecord(person);
+				
+				//multivalue entry with nil label
+				person.addresses = [MultivalueEntry(value: [SwiftAddressBookAddressProperty.street : "testStreet"],
+					label: nil,
+					id: 0),
+					MultivalueEntry(value: [SwiftAddressBookAddressProperty.street : "testStreet"],
+						label: "testLabel",
+						id: 0)]
+				//nil multivalue dictionary property
+				person.socialProfiles = nil
+				//nil multivalue property
+				person.phoneNumbers = nil
+				//nil single value property
+				person.firstName = nil
+
+				swiftAddressBook!.save()
+
+				XCTAssertNil(person.addresses?.first?.label, "label of first address should be nil")
+				XCTAssertNotNil(person.addresses?.last?.label, "label of second address should be not nil")
+				XCTAssert(person.socialProfiles == nil, "social profiles should be nil")
+				XCTAssert(person.phoneNumbers == nil, "phone numbers should be nil")
+				XCTAssert(person.firstName == nil, "first name should be nil")
+
+				if let label = person.addresses?.first?.label {
+					XCTAssert(false, "label of first address cannot be unwrapped")
+				}
+
+				if let label2 = person.addresses?.last?.label {
+					XCTAssertEqual(label2, "testLabel", "label of second address must be testLabel")
+				}
+				else {
+					XCTAssert(false, "should be able to unwrap label of second address")
+				}
+
+				if let socialProfiles = person.socialProfiles {
+					XCTAssert(false, "social profiles cannot be unwrapped")
+				}
+
+				if let phoneNumbers = person.phoneNumbers {
+					XCTAssert(false, "phone numbers cannot be unwrapped")
+				}
+
+				if let label = person.firstName {
+					XCTAssert(false, "first name cannot be unwrapped")
+				}
+
+				//try overriding label of both addresses
+				var addresses = person.addresses!
+				addresses[0] = MultivalueEntry(value: addresses[0].value, label: "testLabel", id: addresses[0].id)
+				addresses[1] = MultivalueEntry(value: addresses[1].value, label: nil, id: addresses[1].id)
+
+				person.addresses = addresses
+				swiftAddressBook!.save()
+
+				XCTAssert(person.addresses?.count == 2, "person should have exactly 2 addresses")
+
+				if let label = person.addresses?.last?.label {
+					XCTAssert(false, "label of second address cannot be unwrapped")
+				}
+
+				if let label2 = person.addresses?.first?.label {
+					XCTAssertEqual(label2, "testLabel", "label of first address must be testLabel")
+				}
+				else {
+					XCTAssert(false, "should be able to unwrap label of first address")
+				}
+
+				swiftAddressBook!.removeRecord(person)
+				swiftAddressBook!.save()
+
+			}
+			else {
+				XCTAssertNotNil(error, self.accessErrorNil)
+			}
+		}
+	}
+
+
     //MARK: - Helper funtions
 
     func getDateTimestamp() -> String {
