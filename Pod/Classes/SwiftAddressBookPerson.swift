@@ -280,12 +280,12 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 		}
 	}
 
-	public var type : SwiftAddressBookPersonType? {
+	public var type : SwiftAddressBookPersonType {
 		get {
-			return SwiftAddressBookPersonType(type : extractProperty(kABPersonMiddleNameProperty))
+			return SwiftAddressBookPersonType(type : extractProperty(kABPersonKindProperty))
 		}
 		set {
-			setSingleValueProperty(kABPersonMiddleNameProperty, newValue?.abPersonType)
+			setSingleValueProperty(kABPersonKindProperty, newValue.abPersonType)
 		}
 	}
 

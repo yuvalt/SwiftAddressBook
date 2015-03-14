@@ -235,6 +235,9 @@ class SwiftAddressBookTests: XCTestCase {
 
     
 	func testNilPropertiesAndOverridingMultivalues() {
+
+		let testExpectation = expectationWithDescription("testNilPropertiesAndOverridingMultivalues")
+
 		swiftAddressBook?.requestAccessWithCompletion { (success, error) -> Void in
 			XCTAssertTrue(success, self.accessError)
 			if success {
@@ -262,7 +265,6 @@ class SwiftAddressBookTests: XCTestCase {
 				XCTAssert(person.socialProfiles == nil, "social profiles should be nil")
 				XCTAssert(person.phoneNumbers == nil, "phone numbers should be nil")
 				XCTAssert(person.firstName == nil, "first name should be nil")
-				XCTAssert(person.type == nil, "type not set, thus should be nil")
 
 				if let label = person.addresses?.first?.label {
 					XCTAssert(false, "label of first address must not be unwrapped")
@@ -285,10 +287,6 @@ class SwiftAddressBookTests: XCTestCase {
 
 				if let label = person.firstName {
 					XCTAssert(false, "first name must not be unwrapped")
-				}
-
-				if let type = person.type {
-					XCTAssert(false, "type must not be unwrapped")
 				}
 
 				//try overriding label of both addresses
@@ -319,7 +317,12 @@ class SwiftAddressBookTests: XCTestCase {
 			else {
 				XCTAssertNotNil(error, self.accessErrorNil)
 			}
+
+			testExpectation.fulfill()
 		}
+
+
+		waitForExpectationsWithTimeout(waitTime, handler: nil)
 	}
 
 

@@ -167,7 +167,7 @@ public enum SwiftAddressBookPersonType {
 
 	case person, organization
 
-	init?(type : CFNumber?) {
+	init(type : CFNumber?) {
 
 		let typeNumber = type as NSNumber?
 
@@ -178,11 +178,11 @@ public enum SwiftAddressBookPersonType {
 			self = .organization
 		}
 		else {
-			return nil
+			self = .person
 		}
 	}
 
-	public var abPersonType : CFNumber? {
+	public var abPersonType : CFNumber {
 		get {
 			switch self {
 			case .person :
