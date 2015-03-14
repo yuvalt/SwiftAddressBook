@@ -167,19 +167,22 @@ public enum SwiftAddressBookPersonType {
 
 	case person, organization
 
-	init(type : CFNumber?) {
-		if CFNumberCompare(type, kABPersonKindPerson, nil) == CFComparisonResult.CompareEqualTo  {
+	init?(type : CFNumber?) {
+
+		let typeNumber = type as NSNumber?
+
+		if typeNumber?.compare(kABPersonKindPerson).rawValue == 0  {
 			self = .person
 		}
-		else if CFNumberCompare(type, kABPersonKindOrganization, nil) == CFComparisonResult.CompareEqualTo{
+		else if typeNumber?.compare(kABPersonKindOrganization).rawValue == 0 {
 			self = .organization
 		}
 		else {
-			self = .person
+			return nil
 		}
 	}
 
-	public var abPersonType : CFNumber {
+	public var abPersonType : CFNumber? {
 		get {
 			switch self {
 			case .person :

@@ -262,9 +262,10 @@ class SwiftAddressBookTests: XCTestCase {
 				XCTAssert(person.socialProfiles == nil, "social profiles should be nil")
 				XCTAssert(person.phoneNumbers == nil, "phone numbers should be nil")
 				XCTAssert(person.firstName == nil, "first name should be nil")
+				XCTAssert(person.type == nil, "type not set, thus should be nil")
 
 				if let label = person.addresses?.first?.label {
-					XCTAssert(false, "label of first address cannot be unwrapped")
+					XCTAssert(false, "label of first address must not be unwrapped")
 				}
 
 				if let label2 = person.addresses?.last?.label {
@@ -275,15 +276,19 @@ class SwiftAddressBookTests: XCTestCase {
 				}
 
 				if let socialProfiles = person.socialProfiles {
-					XCTAssert(false, "social profiles cannot be unwrapped")
+					XCTAssert(false, "social profiles must not be unwrapped")
 				}
 
 				if let phoneNumbers = person.phoneNumbers {
-					XCTAssert(false, "phone numbers cannot be unwrapped")
+					XCTAssert(false, "phone numbers must not be unwrapped")
 				}
 
 				if let label = person.firstName {
-					XCTAssert(false, "first name cannot be unwrapped")
+					XCTAssert(false, "first name must not be unwrapped")
+				}
+
+				if let type = person.type {
+					XCTAssert(false, "type must not be unwrapped")
 				}
 
 				//try overriding label of both addresses
