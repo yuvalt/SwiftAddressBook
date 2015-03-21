@@ -12,6 +12,9 @@
 		8550DDB81A892055009B86D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8550DDB61A892055009B86D8 /* Main.storyboard */; };
 		8550DDBA1A892055009B86D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8550DDB91A892055009B86D8 /* Images.xcassets */; };
 		8550DDBD1A892055009B86D8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8550DDBB1A892055009B86D8 /* LaunchScreen.xib */; };
+		85C301841ABDB1180026214B /* SwiftAddressBookPersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C301831ABDB1180026214B /* SwiftAddressBookPersonTests.swift */; };
+		85C301871ABDB13E0026214B /* SwiftAddressBookGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C301851ABDB13E0026214B /* SwiftAddressBookGroupTests.swift */; };
+		85C301881ABDB13E0026214B /* SwiftAddressBookSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C301861ABDB13E0026214B /* SwiftAddressBookSourceTests.swift */; };
 		85DA60151A8FC05400EC0EC6 /* AddressViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DA60131A8FC05400EC0EC6 /* AddressViewCell.swift */; };
 		85DA60161A8FC05400EC0EC6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DA60141A8FC05400EC0EC6 /* TableViewController.swift */; };
 		8994F3A7051332B6F05F9A6A /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45D1995FD5B568E95630AA9 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -44,6 +47,9 @@
 		8550DDB91A892055009B86D8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8550DDBC1A892055009B86D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8550DDD21A8922B7009B86D8 /* SwiftAddressBookExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftAddressBookExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		85C301831ABDB1180026214B /* SwiftAddressBookPersonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookPersonTests.swift; sourceTree = "<group>"; };
+		85C301851ABDB13E0026214B /* SwiftAddressBookGroupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookGroupTests.swift; sourceTree = "<group>"; };
+		85C301861ABDB13E0026214B /* SwiftAddressBookSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookSourceTests.swift; sourceTree = "<group>"; };
 		85DA60131A8FC05400EC0EC6 /* AddressViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressViewCell.swift; sourceTree = "<group>"; };
 		85DA60141A8FC05400EC0EC6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		9EEB5D13CF697608056BC10D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +107,9 @@
 			isa = PBXGroup;
 			children = (
 				70D124111A9C217100FC9E1C /* SwiftAddressBookTests.swift */,
+				85C301851ABDB13E0026214B /* SwiftAddressBookGroupTests.swift */,
+				85C301861ABDB13E0026214B /* SwiftAddressBookSourceTests.swift */,
+				85C301831ABDB1180026214B /* SwiftAddressBookPersonTests.swift */,
 				70D1240F1A9C217100FC9E1C /* Supporting Files */,
 			);
 			path = SwiftAddressBookTests;
@@ -356,6 +365,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85C301841ABDB1180026214B /* SwiftAddressBookPersonTests.swift in Sources */,
+				85C301871ABDB13E0026214B /* SwiftAddressBookGroupTests.swift in Sources */,
+				85C301881ABDB13E0026214B /* SwiftAddressBookSourceTests.swift in Sources */,
 				70D124121A9C217100FC9E1C /* SwiftAddressBookTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,6 +545,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftAddressBookExample/SwiftAddressBookExample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Release;
 		};

@@ -12,7 +12,7 @@ import SwiftAddressBook
 import AddressBook
 
 //**** Run the example project first, to accept address book access ****
-class SwiftAddressBookTests: XCTestCase {
+class SwiftAddressBookGroupTests: XCTestCase {
 
 	let waitTime = 3.0
     
@@ -29,30 +29,11 @@ class SwiftAddressBookTests: XCTestCase {
         super.tearDown()
     }
 
-	//TODO: test authorization status, save, revert
-    
-    func testGetAllPeople() {
+	//TODO: test group related methods from swiftaddressbook
 
-		let testExpectation = expectationWithDescription("testGetAllPeople")
+	//TODO: test creating, modifying, and deleting group
 
-        swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
-            XCTAssertTrue(success, self.accessError)
-            if success {
-                let people : Array<SwiftAddressBookPerson>? = swiftAddressBook?.allPeople
-                
-                XCTAssert(people?.count > 0, "Unable to get people from address book")
-            } else {
-                XCTAssertNotNil(error, self.accessErrorNil)
-			}
-			
-			testExpectation.fulfill()
-		})
-
-		waitForExpectationsWithTimeout(waitTime, handler: nil)
-    }
-    
-
-    //MARK: - Helper funtions
+	//MARK: - Helper funtions
 
     func getDateTimestamp() -> String {
         var formatter = NSDateFormatter()
