@@ -1,6 +1,6 @@
 # SwiftAddressBook - A strong-typed Swift Wrapper for ABAddressBook
 
-[![CI Status](http://img.shields.io/travis/Tassilo Karge/SwiftAddressBook.svg?style=flat)](https://travis-ci.org/Tassilo Karge/SwiftAddressBook)
+[![CI Status](http://img.shields.io/travis/SocialbitGmbH/SwiftAddressBook.svg?style=flat)](https://travis-ci.org/SocialbitGmbH/SwiftAddressBook)
 [![Version](https://img.shields.io/cocoapods/v/SwiftAddressBook.svg?style=flat)](http://cocoadocs.org/docsets/SwiftAddressBook)
 [![License](https://img.shields.io/cocoapods/l/SwiftAddressBook.svg?style=flat)](http://cocoadocs.org/docsets/SwiftAddressBook)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftAddressBook.svg?style=flat)](http://cocoadocs.org/docsets/SwiftAddressBook)
