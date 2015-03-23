@@ -73,7 +73,7 @@ class SwiftAddressBookPersonTests: XCTestCase {
 						XCTAssert(address[SwiftAddressBookAddressProperty.state] as? NSString == "CA", "Incorrect state")
 						XCTAssert(address[SwiftAddressBookAddressProperty.zip] as? NSString == "94010", "Incorrect zip")
 					}
-					let date = self.getDate(1978, 01, 20).dateByAddingTimeInterval(13*60*60)
+					let date = self.getDate(1978, 01, 20, 12)
 					XCTAssert(person.birthday! == date, "Incorrect birthday (was \(person.birthday))")
 				}
 			} else {
@@ -309,19 +309,22 @@ class SwiftAddressBookPersonTests: XCTestCase {
 	
 
 
-    //MARK: - Helper funtions
 
-    func getDateTimestamp() -> String {
-        var formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
-        return formatter.stringFromDate(NSDate())
-    }
-    
-    func getDate(year: Int,_ month: Int,_ day: Int) -> NSDate {
-        var components = NSDateComponents()
-        components.year = year
-        components.month = month
-        components.day = day
-        return NSCalendar.currentCalendar().dateFromComponents(components)!
-    }
+	//MARK: - Helper funtions
+
+	func getDateTimestamp() -> String {
+		var formatter = NSDateFormatter()
+		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
+		return formatter.stringFromDate(NSDate())
+	}
+
+	func getDate(year: Int,_ month: Int,_ day: Int,_ hour: Int) -> NSDate {
+		var components = NSDateComponents()
+		components.year = year
+		components.month = month
+		components.day = day
+		components.hour = hour
+		components.timeZone = NSTimeZone(name: "UTC")
+		return NSCalendar.currentCalendar().dateFromComponents(components)!
+	}
 }
