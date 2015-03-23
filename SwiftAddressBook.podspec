@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
                        It is tedious and requires very much reading in the documentation if you want to understand the ABAddressBook in iOS. To provide a solution, this wrapper uses Swift, which is strong-typed (unlike c). It also circumvents the use of unsafe c-pointers when accessing ABAddressBook from Swift, by directly casting them to the correct type. All properties, previously only available via the correct key, can now be accessed conveniently via variables.
                        DESC
   s.homepage         = "https://github.com/SocialbitGmbH/SwiftAddressBook"
-  s.license          = 'GPLV3'
+  s.license          = 'Apache 2.0'
   s.author           = { "Tassilo Karge" => "tassilo.karge@socialbit.de" }
   s.source           = { :git => "https://github.com/SocialbitGmbH/SwiftAddressBook.git", :tag => "0.4.1" }
   s.social_media_url = 'https://twitter.com/socialbit_de'
