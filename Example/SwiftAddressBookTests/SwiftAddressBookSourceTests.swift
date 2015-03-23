@@ -14,7 +14,7 @@ import AddressBook
 //**** Run the example project first, to accept address book access ****
 class SwiftAddressBookSourceTests: XCTestCase {
 
-	let waitTime = 100.0
+	let waitTime = 3.0
     
     let accessError = "Address book access was not granted. Run the main application and grant access to the address book."
     let accessErrorNil = "Failed to get address book access denial error"

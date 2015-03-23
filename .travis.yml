@@ -1,3 +1,11 @@
 language: objective-c
-xcode_project: Example/SwiftAddressBookExample.xcworkspace
-xcode_scheme: SwiftAddressBookTests
+podfile: Example/Podfile
+
+before_install:
+    - gem install cocoapods --quiet
+
+script:
+    - "xcrun instruments -w 'iPhone 6 (8.1 Simulator)' || true"
+    - xctool -workspace Example/SwiftAddressBookExample.xcworkspace -sdk iphonesimulator -scheme SwiftAddressBookTests build
+    - perl allowAccess
+    - "xctool -workspace Example/SwiftAddressBookExample.xcworkspace -sdk iphonesimulator -scheme SwiftAddressBookTests -destination platform='iOS Simulator','OS=8.1',name='iPhone 6' test"
