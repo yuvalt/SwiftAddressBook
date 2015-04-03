@@ -62,7 +62,14 @@ it, simply add the following line to your Podfile:
 
     pod "SwiftAddressBook"
 
-If you don´t want to use CocoaPods, or maintain iOS7 compatibility, just copy SwiftAddressBookWrapper.swift into your project
+Note: version 0.36 requires you to also specify the flag
+
+    use_frameworks!
+
+as documented [here](http://blog.cocoapods.org/CocoaPods-0.36/)
+and then `import SwiftAddressBook` in your project (and `import AddressBook` for using constants from ABAddressBook)
+
+If you don´t want to use CocoaPods, or need to maintain iOS7 compatibility, just copy all files from the folder Pod/Classes into your project. This way, you don´t need to `import SwiftAddressBook`-
 
 
 
