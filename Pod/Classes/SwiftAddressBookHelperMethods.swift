@@ -34,18 +34,18 @@ func errorIfNoSuccess(call : (UnsafeMutablePointer<Unmanaged<CFError>?>) -> Bool
 
 //MARK: methods to convert arrays of ABRecords
 
-func convertRecordsToSources(records : [ABRecord]?) -> [SwiftAddressBookSource]? {
-	let swiftRecords = records?.map {(record : ABRecord) -> SwiftAddressBookSource in return SwiftAddressBookRecord(record: record).convertToSource()!}
+func convertRecordsToSources(records : CFArray?) -> [SwiftAddressBookSource]? {
+	let swiftRecords = (records as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookSource in return SwiftAddressBookRecord(record: record).convertToSource()!}
 	return swiftRecords
 }
 
-func convertRecordsToGroups(records : [ABRecord]?) -> [SwiftAddressBookGroup]? {
-	let swiftRecords = records?.map {(record : ABRecord) -> SwiftAddressBookGroup in return SwiftAddressBookRecord(record: record).convertToGroup()!}
+func convertRecordsToGroups(records : CFArray?) -> [SwiftAddressBookGroup]? {
+	let swiftRecords = (records as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookGroup in return SwiftAddressBookRecord(record: record).convertToGroup()!}
 	return swiftRecords
 }
 
-func convertRecordsToPersons(records : [ABRecord]?) -> [SwiftAddressBookPerson]? {
-	let swiftRecords = records?.map {(record : ABRecord) -> SwiftAddressBookPerson in
+func convertRecordsToPersons(records : CFArray?) -> [SwiftAddressBookPerson]? {
+	let swiftRecords = (records as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookPerson in
 		return SwiftAddressBookRecord(record: record).convertToPerson()!
 	}
 	return swiftRecords

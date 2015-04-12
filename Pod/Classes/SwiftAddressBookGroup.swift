@@ -15,13 +15,7 @@ public class SwiftAddressBookGroup : SwiftAddressBookRecord {
 
 	public var name : String? {
 		get {
-			let value: AnyObject? = ABRecordCopyValue(internalRecord, kABGroupNameProperty)?.takeRetainedValue() as CFString
-			if value != nil {
-				return value as CFString
-			}
-			else {
-				return nil
-			}
+			return ABRecordCopyValue(internalRecord, kABGroupNameProperty)?.takeRetainedValue() as? String
 		}
 		set {
 			ABRecordSetValue(internalRecord, kABGroupNameProperty, newValue, nil)

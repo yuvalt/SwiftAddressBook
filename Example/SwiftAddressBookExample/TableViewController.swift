@@ -126,13 +126,13 @@ class TableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("addressCell", forIndexPath: indexPath) as AddressViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("addressCell", forIndexPath: indexPath) as! AddressViewCell
         
         if groups == nil || indexPath.section == groups?.count {
             // Configure the cell...
             cell.nameLabel.text = people![indexPath.row].compositeName
             cell.birthdateLabel.text = birthdates![indexPath.row]?.description
-            cell.phoneNumberLabel.text = numbers![indexPath.row]?.first?
+            cell.phoneNumberLabel.text = numbers![indexPath.row]?.first!
         }
         else {
             cell.nameLabel.text = groups![indexPath.section].allMembers![indexPath.row].compositeName

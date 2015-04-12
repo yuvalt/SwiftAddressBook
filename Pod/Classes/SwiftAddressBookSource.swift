@@ -28,14 +28,14 @@ public class SwiftAddressBookSource : SwiftAddressBookRecord {
 
 	private var internalSourceType : Int32 {
 		get {
-			let sourceType = ABRecordCopyValue(internalRecord, kABSourceTypeProperty)?.takeRetainedValue() as NSNumber
+			let sourceType = ABRecordCopyValue(internalRecord, kABSourceTypeProperty)?.takeRetainedValue() as! NSNumber
 			return sourceType.intValue
 		}
 	}
 
 	public var sourceName : String? {
 		get {
-			return ABRecordCopyValue(internalRecord, kABSourceNameProperty)?.takeRetainedValue() as? NSString
+			return ABRecordCopyValue(internalRecord, kABSourceNameProperty)?.takeRetainedValue() as? String
 		}
 	}
 }
