@@ -7,6 +7,8 @@
 
 Complete wrapper for the ABAddressBook C-Framework for iOS, written in Swift to be typesafe and convenient
 
+Note: please use https://github.com/SocialbitGmbH/SwiftAddressBook/tree/Swift_1.2_take2 while the Swift 1.2 compatible version is not merged to the main branch.
+
 ## Description
 
   It is tedious and requires very much reading in the documentation if you want to understand the ABAddressBook in iOS. To provide a solution, this wrapper uses Swift, which is strong-typed (unlike c). It also circumvents the use of unsafe c-pointers when accessing ABAddressBook from Swift, by directly casting them to the correct type. All properties, previously only available via the correct key, can now be accessed conveniently via variables.
