@@ -42,7 +42,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 	public class func createVCard(people : [SwiftAddressBookPerson]) -> String {
 		let peopleArray : NSArray = people.map{$0.internalRecord}
 		let data : NSData = ABPersonCreateVCardRepresentationWithPeople(peopleArray).takeRetainedValue()
-		return NSString(data: data, encoding: NSUTF8StringEncoding)!
+		return NSString(data: data, encoding: NSUTF8StringEncoding)! as String
 	}
 
 	public class func ordering() -> SwiftAddressBookOrdering {
@@ -81,7 +81,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 
 	public var allLinkedPeople : Array<SwiftAddressBookPerson>? {
 		get {
-			return convertRecordsToPersons(ABPersonCopyArrayOfAllLinkedPeople(internalRecord).takeRetainedValue() as CFArray)
+			return convertRecordsToPersons(ABPersonCopyArrayOfAllLinkedPeople(internalRecord).takeRetainedValue())
 		}
 	}
 
@@ -93,7 +93,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 
 	public var compositeNameDelimiterForRecord : String {
 		get {
-			return ABPersonCopyCompositeNameDelimiterForRecord(internalRecord).takeRetainedValue()
+			return ABPersonCopyCompositeNameDelimiterForRecord(internalRecord).takeRetainedValue() as String
 		}
 	}
 
@@ -105,7 +105,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 
 	public var compositeName : String? {
 		get {
-			return ABRecordCopyCompositeName(internalRecord)?.takeRetainedValue()
+			return ABRecordCopyCompositeName(internalRecord)?.takeRetainedValue() as? String
 		}
 	}
 
@@ -114,7 +114,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonFirstNameProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonFirstNameProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonFirstNameProperty,  newValue as NSString?)
 		}
 	}
 
@@ -123,7 +123,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonLastNameProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonLastNameProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonLastNameProperty,  newValue as NSString?)
 		}
 	}
 
@@ -132,7 +132,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonMiddleNameProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonMiddleNameProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonMiddleNameProperty,  newValue as NSString?)
 		}
 	}
 
@@ -141,7 +141,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonPrefixProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonPrefixProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonPrefixProperty,  newValue as NSString?)
 		}
 	}
 
@@ -150,7 +150,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonSuffixProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonSuffixProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonSuffixProperty,  newValue as NSString?)
 		}
 	}
 
@@ -159,7 +159,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonNicknameProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonNicknameProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonNicknameProperty,  newValue as NSString?)
 		}
 	}
 
@@ -168,7 +168,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonFirstNamePhoneticProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonFirstNamePhoneticProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonFirstNamePhoneticProperty,  newValue as NSString?)
 		}
 	}
 
@@ -177,7 +177,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonLastNamePhoneticProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonLastNamePhoneticProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonLastNamePhoneticProperty,  newValue as NSString?)
 		}
 	}
 
@@ -186,7 +186,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonMiddleNamePhoneticProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonMiddleNamePhoneticProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonMiddleNamePhoneticProperty,  newValue as NSString?)
 		}
 	}
 
@@ -195,7 +195,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonOrganizationProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonOrganizationProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonOrganizationProperty,  newValue as NSString?)
 		}
 	}
 
@@ -204,7 +204,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonJobTitleProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonJobTitleProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonJobTitleProperty,  newValue as NSString?)
 		}
 	}
 
@@ -213,7 +213,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonDepartmentProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonDepartmentProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonDepartmentProperty,  newValue as NSString?)
 		}
 	}
 
@@ -222,7 +222,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractMultivalueProperty(kABPersonEmailProperty)
 		}
 		set {
-			setMultivalueProperty(kABPersonEmailProperty, convertMultivalueEntries(newValue, converter: { NSString(string : $0) }))
+			setMultivalueProperty(kABPersonEmailProperty, convertMultivalueEntries(newValue, converter: {  $0 as NSString }))
 		}
 	}
 
@@ -240,7 +240,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractProperty(kABPersonNoteProperty)
 		}
 		set {
-			setSingleValueProperty(kABPersonNoteProperty, NSString(optionalString: newValue))
+			setSingleValueProperty(kABPersonNoteProperty,  newValue as NSString?)
 		}
 	}
 
@@ -264,10 +264,12 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 
 	public var addresses : Array<MultivalueEntry<Dictionary<SwiftAddressBookAddressProperty,AnyObject>>>? {
 		get {
-			return extractMultivalueDictionaryProperty(kABPersonAddressProperty, keyConverter: {SwiftAddressBookAddressProperty(property: $0 as NSString)}, valueConverter: {$0})
+			let keyConverter = {(s : NSString) -> SwiftAddressBookAddressProperty in SwiftAddressBookAddressProperty(property: s as String)}
+			let valueConverter = { (s : AnyObject) -> AnyObject in return s }
+			return extractMultivalueDictionaryProperty(kABPersonAddressProperty, keyConverter: keyConverter, valueConverter: valueConverter)
 		}
 		set {
-			setMultivalueDictionaryProperty(kABPersonAddressProperty, newValue, { NSString(string: $0.abAddressProperty) }, {$0} )
+			setMultivalueDictionaryProperty(kABPersonAddressProperty, newValue, keyConverter: { $0.abAddressProperty as NSString }, valueConverter: { $0 } )
 		}
 	}
 
@@ -294,25 +296,29 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractMultivalueProperty(kABPersonPhoneProperty)
 		}
 		set {
-			setMultivalueProperty(kABPersonPhoneProperty, convertMultivalueEntries(newValue, converter: {NSString(string: $0)}))
+			setMultivalueProperty(kABPersonPhoneProperty, convertMultivalueEntries(newValue, converter: { $0 as NSString}))
 		}
 	}
 
 	public var instantMessage : Array<MultivalueEntry<Dictionary<SwiftAddressBookInstantMessagingProperty,String>>>? {
 		get {
-			return extractMultivalueDictionaryProperty(kABPersonInstantMessageProperty, keyConverter: {SwiftAddressBookInstantMessagingProperty(property: $0 as NSString)}, valueConverter: {$0})
+			let keyConverter = {(s : NSString) -> SwiftAddressBookInstantMessagingProperty in SwiftAddressBookInstantMessagingProperty(property: s as String)}
+			let valueConverter = { (s : String) -> String in return s }
+			return extractMultivalueDictionaryProperty(kABPersonInstantMessageProperty, keyConverter: keyConverter, valueConverter: valueConverter)
 		}
 		set {
-			setMultivalueDictionaryProperty(kABPersonInstantMessageProperty, newValue, keyConverter: { NSString(string: $0.abInstantMessageProperty) }, valueConverter: { NSString(string: $0) })
+			setMultivalueDictionaryProperty(kABPersonInstantMessageProperty, newValue, keyConverter: {  $0.abInstantMessageProperty as NSString }, valueConverter: {  $0 as NSString })
 		}
 	}
 
 	public var socialProfiles : Array<MultivalueEntry<Dictionary<SwiftAddressBookSocialProfileProperty,String>>>? {
 		get {
-			return extractMultivalueDictionaryProperty(kABPersonSocialProfileProperty, keyConverter: {SwiftAddressBookSocialProfileProperty(property: $0 as NSString)}, valueConverter: {$0})
+			let keyConverter = {(s : NSString) -> SwiftAddressBookSocialProfileProperty in SwiftAddressBookSocialProfileProperty(property: s as String)}
+			let valueConverter = { (s : String) -> String in return s }
+			return extractMultivalueDictionaryProperty(kABPersonSocialProfileProperty, keyConverter: keyConverter, valueConverter: valueConverter)
 		}
 		set {
-			setMultivalueDictionaryProperty(kABPersonSocialProfileProperty, newValue, keyConverter: { NSString(string: $0.abSocialProfileProperty) }, valueConverter:  { NSString(string : $0) } )
+			setMultivalueDictionaryProperty(kABPersonSocialProfileProperty, newValue, keyConverter: {  $0.abSocialProfileProperty as NSString }, valueConverter:  {  $0 as NSString } )
 		}
 	}
 
@@ -322,7 +328,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractMultivalueProperty(kABPersonURLProperty)
 		}
 		set {
-			setMultivalueProperty(kABPersonURLProperty, convertMultivalueEntries(newValue, converter: { NSString(string : $0) }))
+			setMultivalueProperty(kABPersonURLProperty, convertMultivalueEntries(newValue, converter: {  $0 as NSString }))
 		}
 	}
 
@@ -331,7 +337,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			return extractMultivalueProperty(kABPersonRelatedNamesProperty)
 		}
 		set {
-			setMultivalueProperty(kABPersonRelatedNamesProperty, convertMultivalueEntries(newValue, converter: { NSString(string : $0) }))
+			setMultivalueProperty(kABPersonRelatedNamesProperty, convertMultivalueEntries(newValue, converter: {  $0 as NSString }))
 		}
 	}
 
@@ -365,7 +371,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			let value : T? = ABMultiValueCopyValueAtIndex(multivalue, i).takeRetainedValue() as? T
 			if let v : T = value {
 				let id : Int = Int(ABMultiValueGetIdentifierAtIndex(multivalue, i))
-				let label : String? = ABMultiValueCopyLabelAtIndex(multivalue, i)?.takeRetainedValue()
+				let label = ABMultiValueCopyLabelAtIndex(multivalue, i)?.takeRetainedValue() as? String
 				array.append(MultivalueEntry(value: v, label: label, id: id))
 			}
 		}
@@ -378,14 +384,17 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 	}
 
 	private func extractMultivalueDictionaryProperty<T : NSCopying, U, V, W>(propertyName : ABPropertyID, keyConverter : (T) -> V, valueConverter : (U) -> W ) -> Array<MultivalueEntry<Dictionary<V, W>>>? {
+
 		var property : Array<MultivalueEntry<NSDictionary>>? = extractMultivalueProperty(propertyName)
 		if let array = property {
+
 			var array2 : Array<MultivalueEntry<Dictionary<V, W>>> = []
 			for oldValue in array {
 				let mv = MultivalueEntry(value: convertNSDictionary(oldValue.value, keyConverter: keyConverter, valueConverter: valueConverter)!, label: oldValue.label, id: oldValue.id)
 				array2.append(mv);
 			}
 			return array2
+
 		}
 		else {
 			return nil
@@ -395,9 +404,9 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 	private func convertNSDictionary<T : NSCopying, U, V, W>(d : NSDictionary?, keyConverter : (T) -> V, valueConverter : (U) -> W ) -> Dictionary<V, W>? {
 		if let d2 = d {
 			var dict = Dictionary<V,W>()
-			for key in d2.allKeys as Array<T> {
+			for key in d2.allKeys as! Array<T> {
 				let newKey = keyConverter(key)
-				let newValue = valueConverter(d2[key] as U)
+				let newValue = valueConverter(d2[key] as! U)
 				dict[newKey] = newValue
 			}
 			return dict
@@ -488,7 +497,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 		let array = convertMultivalueEntries(multivalue, converter: { d -> NSDictionary in
 			return self.convertDictionary(d, keyConverter: keyConverter, valueConverter: valueConverter)!
 		})
-
+		
 		setMultivalueProperty(key, array)
 	}
 }

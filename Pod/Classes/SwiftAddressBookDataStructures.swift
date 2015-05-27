@@ -112,13 +112,13 @@ public enum SwiftAddressBookSocialProfileProperty {
 
 	init(property : String) {
 		switch property {
-		case kABPersonSocialProfileURLKey :
+		case String(kABPersonSocialProfileURLKey) :
 			self = .url
-		case kABPersonSocialProfileServiceKey :
+		case String(kABPersonSocialProfileServiceKey) :
 			self = .service
-		case kABPersonSocialProfileUsernameKey :
+		case String(kABPersonSocialProfileUsernameKey) :
 			self = .username
-		case kABPersonSocialProfileUserIdentifierKey :
+		case String(kABPersonSocialProfileUserIdentifierKey) :
 			self = .userIdentifier
 		default :
 			self = .url
@@ -128,13 +128,13 @@ public enum SwiftAddressBookSocialProfileProperty {
 	public var abSocialProfileProperty : String {
 		switch self {
 		case .url :
-			return kABPersonSocialProfileURLKey
+			return String(kABPersonSocialProfileURLKey)
 		case .service :
-			return kABPersonSocialProfileServiceKey
+			return String(kABPersonSocialProfileServiceKey)
 		case .username :
-			return kABPersonSocialProfileUsernameKey
+			return String(kABPersonSocialProfileUsernameKey)
 		case .userIdentifier :
-			return kABPersonSocialProfileUserIdentifierKey
+			return String(kABPersonSocialProfileUserIdentifierKey)
 		}
 	}
 }
@@ -144,9 +144,9 @@ public enum SwiftAddressBookInstantMessagingProperty {
 
 	init(property : String) {
 		switch property {
-		case kABPersonInstantMessageServiceKey :
+		case String(kABPersonInstantMessageServiceKey) :
 			self = .service
-		case kABPersonInstantMessageUsernameKey :
+		case String(kABPersonInstantMessageUsernameKey) :
 			self = .username
 		default :
 			self = .service
@@ -156,9 +156,9 @@ public enum SwiftAddressBookInstantMessagingProperty {
 	public var abInstantMessageProperty : String {
 		switch self {
 		case .service :
-			return kABPersonInstantMessageServiceKey
+			return String(kABPersonInstantMessageServiceKey)
 		case .username :
-			return kABPersonInstantMessageUsernameKey
+			return String(kABPersonInstantMessageUsernameKey)
 		}
 	}
 }
@@ -199,17 +199,17 @@ public enum SwiftAddressBookAddressProperty {
 
 	init(property : String) {
 		switch property {
-		case kABPersonAddressStreetKey:
+		case String(kABPersonAddressStreetKey):
 			self = .street
-		case kABPersonAddressCityKey:
+		case String(kABPersonAddressCityKey):
 			self = .city
-		case kABPersonAddressStateKey:
+		case String(kABPersonAddressStateKey):
 			self = .state
-		case kABPersonAddressZIPKey:
+		case String(kABPersonAddressZIPKey):
 			self = .zip
-		case kABPersonAddressCountryKey:
+		case String(kABPersonAddressCountryKey):
 			self = .country
-		case kABPersonAddressCountryCodeKey:
+		case String(kABPersonAddressCountryCodeKey):
 			self = .countryCode
 		default:
 			self = .street
@@ -220,19 +220,19 @@ public enum SwiftAddressBookAddressProperty {
 		get {
 			switch self {
 			case .street :
-				return kABPersonAddressStreetKey
+				return String(kABPersonAddressStreetKey)
 			case .city :
-				return kABPersonAddressCityKey
+				return String(kABPersonAddressCityKey)
 			case .state :
-				return kABPersonAddressStateKey
+				return String(kABPersonAddressStateKey)
 			case .zip :
-				return kABPersonAddressZIPKey
+				return String(kABPersonAddressZIPKey)
 			case .country :
-				return kABPersonAddressCountryKey
+				return String(kABPersonAddressCountryKey)
 			case .countryCode :
-				return kABPersonAddressCountryCodeKey
+				return String(kABPersonAddressCountryCodeKey)
 			default:
-				return kABPersonAddressStreetKey
+				return String(kABPersonAddressStreetKey)
 			}
 		}
 	}

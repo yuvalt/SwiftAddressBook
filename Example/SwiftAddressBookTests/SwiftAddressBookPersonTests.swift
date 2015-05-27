@@ -48,23 +48,23 @@ class SwiftAddressBookPersonTests: XCTestCase {
 					XCTAssert(person.phoneNumbers != nil, "Phone numbers collection was nil")
 					if let phoneNumbers = person.phoneNumbers {
 						XCTAssert(phoneNumbers.count == 2, "Wrong phone number count")
-						XCTAssert(phoneNumbers[0].label == kABPersonPhoneMobileLabel, "Incorrect first phone label")
+						XCTAssert(phoneNumbers[0].label == String(kABPersonPhoneMobileLabel), "Incorrect first phone label")
 						XCTAssert(phoneNumbers[0].value == "(555) 564-8583", "Incorrect first phone number")
-						XCTAssert(phoneNumbers[1].label == kABPersonPhoneMainLabel, "Incorrect second phone label")
+						XCTAssert(phoneNumbers[1].label == String(kABPersonPhoneMainLabel), "Incorrect second phone label")
 						XCTAssert(phoneNumbers[1].value == "(415) 555-3695", "Incorrect second phone number")
 					}
 					XCTAssert(person.phoneNumbers != nil, "Email collection was nil")
 					if let emails = person.emails {
 						XCTAssert(emails.count == 2, "Wrong email count")
-						XCTAssert(emails[0].label == kABWorkLabel, "Incorrect first email label")
+						XCTAssert(emails[0].label == String(kABWorkLabel), "Incorrect first email label")
 						XCTAssert(emails[0].value == "kate-bell@mac.com", "Incorrect first email")
-						XCTAssert(emails[1].label == kABWorkLabel, "Incorrect second email label")
+						XCTAssert(emails[1].label == String(kABWorkLabel), "Incorrect second email label")
 						XCTAssert(emails[1].value == "www.icloud.com", "Incorrect second email")
 					}
 					XCTAssert(person.addresses != nil, "Address collection was nil")
 					if let addresses = person.addresses {
 						XCTAssert(addresses.count == 1, "Wrong address count")
-						XCTAssert(addresses[0].label == kABWorkLabel, "Incorrect address label")
+						XCTAssert(addresses[0].label == String(kABWorkLabel), "Incorrect address label")
 						var address = addresses[0].value
 						//address dictionary contains countryCode, state, street, zip and city in this case
 						XCTAssert(address.count == 5, "Incorrect address value count")
