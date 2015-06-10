@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import UIKit
 import AddressBook
 
 //MARK: Wrapper for ABAddressBookRecord of type ABPerson
