@@ -19,6 +19,12 @@ public class SwiftAddressBookRecord {
 		internalRecord = record
 	}
 
+	public var recordID: Int {
+		get {
+			return Int(ABRecordGetRecordID(self.internalRecord))
+		}
+	}
+
 	public func convertToSource() -> SwiftAddressBookSource? {
 		if ABRecordGetRecordType(internalRecord) == UInt32(kABSourceType) {
 			let source = SwiftAddressBookSource(record: internalRecord)
