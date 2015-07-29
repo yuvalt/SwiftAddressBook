@@ -94,6 +94,37 @@ public class SwiftAddressBook {
         }
     }
     
+	public var allPeopleExcludingLinkedContacts : [SwiftAddressBookPerson]? {
+		if let all = allPeople {
+			var filtered : NSMutableArray = NSMutableArray(array: all)
+			for person in all {
+				if !contains(NSArray(array: filtered) as! [SwiftAddressBookPerson], {
+					(SwiftAddressBookPerson p) -> Bool in
+					return p.recordID == person.recordID
+				}) {
+					//already filtered out this contact
+					continue
+				}
+
+				//throw out duplicates
+				let allFiltered : [SwiftAddressBookPerson] = NSArray(array: filtered) as! [SwiftAddressBookPerson]
+				for possibleDuplicate in allFiltered {
+					if let linked = person.allLinkedPeople {
+						if possibleDuplicate.recordID != person.recordID
+							&& contains(linked, {
+								(SwiftAddressBookPerson p) -> Bool in
+								return p.recordID == possibleDuplicate.recordID
+							}) {
+								(filtered as NSMutableArray).removeObject(possibleDuplicate)
+						}
+					}
+				}
+			}
+			return NSArray(array: filtered) as? [SwiftAddressBookPerson]
+		}
+		return nil
+	}
+
     public func allPeopleInSource(source : SwiftAddressBookSource) -> [SwiftAddressBookPerson]? {
         return convertRecordsToPersons(ABAddressBookCopyArrayOfAllPeopleInSource(internalAddressBook, source.internalRecord).takeRetainedValue())
     }

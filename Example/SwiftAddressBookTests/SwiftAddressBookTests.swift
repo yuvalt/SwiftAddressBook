@@ -51,6 +51,27 @@ class SwiftAddressBookTests: XCTestCase {
 		waitForExpectationsWithTimeout(waitTime, handler: nil)
     }
     
+	//TODO: tests badly: actually only checks that array is not empty, instead of if linked contacts contained
+	func testGetAllPeopleExcludingLinkedContacts() {
+		let testExpectation = expectationWithDescription("testGetAllPeople")
+
+		swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
+			XCTAssertTrue(success, self.accessError)
+			if success {
+				let people : Array<SwiftAddressBookPerson>? = swiftAddressBook?.allPeopleExcludingLinkedContacts
+
+				XCTAssert(people?.count > 0, "Unable to get main contacts from address book")
+
+			} else {
+				XCTAssertNotNil(error, self.accessErrorNil)
+			}
+
+			testExpectation.fulfill()
+		})
+
+		waitForExpectationsWithTimeout(waitTime, handler: nil)
+	}
+
 
     //MARK: - Helper funtions
 
