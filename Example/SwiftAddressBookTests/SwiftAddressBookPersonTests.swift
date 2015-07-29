@@ -46,6 +46,11 @@ class SwiftAddressBookPersonTests: XCTestCase {
 					XCTAssert(person.jobTitle == "Producer", "Job Title was wrong")
 					XCTAssert(person.organization == "Creative Consulting", "Organization was wrong")
 					XCTAssert(person.phoneNumbers != nil, "Phone numbers collection was nil")
+
+					if let image = person.image {
+						XCTAssert(false, "this person has no image, but returns one!");
+					}
+
 					if let phoneNumbers = person.phoneNumbers {
 						XCTAssert(phoneNumbers.count == 2, "Wrong phone number count")
 						XCTAssert(phoneNumbers[0].label == String(kABPersonPhoneMobileLabel), "Incorrect first phone label")

@@ -63,7 +63,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 
 	public var image : UIImage? {
 		get {
-			return UIImage(data: ABPersonCopyImageData(internalRecord).takeRetainedValue())
+			return ABPersonHasImageData(internalRecord) ? UIImage(data: ABPersonCopyImageData(internalRecord).takeRetainedValue()) : nil
 		}
 	}
 
