@@ -311,7 +311,26 @@ class SwiftAddressBookPersonTests: XCTestCase {
 		waitForExpectationsWithTimeout(waitTime, handler: nil)
 	}
 
-	
+	func testPeopleInHashBasedCollections() {
+
+		let testExpectation = expectationWithDescription("testPeopleInHashBasedCollections")
+
+		swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
+			XCTAssertTrue(success, self.accessError)
+			if success {
+				if let allPeople = swiftAddressBook?.allPeople {
+					let allPeopleSet = Set(allPeople)
+					XCTAssertNotNil(allPeopleSet, "people should be storable in hash-based collections")
+				}
+			} else {
+				XCTAssertNotNil(error, self.accessErrorNil)
+			}
+
+			testExpectation.fulfill()
+		})
+
+		waitForExpectationsWithTimeout(waitTime, handler: nil)
+	}
 
 
 
