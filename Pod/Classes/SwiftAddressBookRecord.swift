@@ -55,3 +55,15 @@ public class SwiftAddressBookRecord {
 		}
 	}
 }
+
+extension SwiftAddressBookRecord: Hashable {
+
+	public var hashValue: Int {
+		return recordID.hashValue
+	}
+
+}
+
+public func == (lhs: SwiftAddressBookRecord, rhs: SwiftAddressBookRecord) -> Bool {
+	return lhs.recordID == rhs.recordID
+}
