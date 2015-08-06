@@ -179,6 +179,10 @@ public class SwiftAddressBook {
         }
     }
     
+    //MARK: records
+    
+    public func recordWithRecord(record: ABRecord) -> SwiftAddressBookRecord! {
+        return SwiftAddressBookRecord(record: record)
+    }
+    
 }
-
-
