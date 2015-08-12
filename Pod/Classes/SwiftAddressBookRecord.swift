@@ -41,5 +41,22 @@ public class SwiftAddressBookRecord {
 
     public func convertToPerson() -> SwiftAddressBookPerson? {
         return self as? SwiftAddressBookPerson
-	}
+    }
+    
+    public static func from(record: ABRecord) -> SwiftAddressBookRecord? {
+        let type = ABRecordGetRecordType(record)
+        if type == UInt32(kABSourceType) {
+            return SwiftAddressBookSource(record: record)
+            
+        } else if type == UInt32(kABGroupType) {
+            return SwiftAddressBookGroup(record: record)
+            
+        } else if type == UInt32(kABPersonType) {
+            return SwiftAddressBookPerson(record: record)
+            
+        } else {
+            return nil
+        }
+    }
+
 }

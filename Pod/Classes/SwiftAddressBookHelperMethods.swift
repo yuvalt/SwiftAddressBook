@@ -36,21 +36,21 @@ func errorIfNoSuccess(call : (UnsafeMutablePointer<Unmanaged<CFError>?>) -> Bool
 
 func convertRecordsToSources(records : CFArray?) -> [SwiftAddressBookSource]? {
 	let swiftRecords = (records as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookSource in
-        return swiftAddressBook?.recordWithRecord(record) as! SwiftAddressBookSource
+        return SwiftAddressBookRecord.from(record) as! SwiftAddressBookSource
     }
 	return swiftRecords
 }
 
 func convertRecordsToGroups(records : CFArray?) -> [SwiftAddressBookGroup]? {
 	let swiftRecords = (records as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookGroup in
-        return swiftAddressBook?.recordWithRecord(record) as! SwiftAddressBookGroup
+        return SwiftAddressBookRecord.from(record) as! SwiftAddressBookGroup
     }
 	return swiftRecords
 }
 
 func convertRecordsToPersons(records : CFArray?) -> [SwiftAddressBookPerson]? {
 	let swiftRecords = (records as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookPerson in
-		return swiftAddressBook?.recordWithRecord(record) as! SwiftAddressBookPerson
+		return SwiftAddressBookRecord.from(record) as! SwiftAddressBookPerson
 	}
 	return swiftRecords
 }
