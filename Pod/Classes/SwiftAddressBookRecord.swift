@@ -25,39 +25,21 @@ public class SwiftAddressBookRecord {
 		}
     }
     
-    public var recordType: Int {
+    public var recordType: SwiftAddressBookRecordType {
         get {
-            return Int(ABRecordGetRecordType(self.internalRecord))
+            return SwiftAddressBookRecordType(abRecordType: ABRecordGetRecordType(self.internalRecord))
         }
     }
 
 	public func convertToSource() -> SwiftAddressBookSource? {
-		if ABRecordGetRecordType(internalRecord) == UInt32(kABSourceType) {
-			let source = SwiftAddressBookSource(record: internalRecord)
-			return source
-		}
-		else {
-			return nil
-		}
+        return self as? SwiftAddressBookSource
 	}
 
 	public func convertToGroup() -> SwiftAddressBookGroup? {
-		if ABRecordGetRecordType(internalRecord) == UInt32(kABGroupType) {
-			let group = SwiftAddressBookGroup(record: internalRecord)
-			return group
-		}
-		else {
-			return nil
-		}
+		return self as? SwiftAddressBookGroup
 	}
 
-	public func convertToPerson() -> SwiftAddressBookPerson? {
-		if ABRecordGetRecordType(internalRecord) == UInt32(kABPersonType) {
-			let person = SwiftAddressBookPerson(record: internalRecord)
-			return person
-		}
-		else {
-			return nil
-		}
+    public func convertToPerson() -> SwiftAddressBookPerson? {
+        return self as? SwiftAddressBookPerson
 	}
 }

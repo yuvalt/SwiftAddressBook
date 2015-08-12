@@ -85,7 +85,7 @@ public class SwiftAddressBook {
     }
     
     public func personWithRecordId(recordId : Int32) -> SwiftAddressBookPerson? {
-        return SwiftAddressBookRecord(record: ABAddressBookGetPersonWithRecordID(internalAddressBook, recordId).takeUnretainedValue()).convertToPerson()
+        return self.recordWithRecord(ABAddressBookGetPersonWithRecordID(internalAddressBook, recordId).takeUnretainedValue()) as? SwiftAddressBookPerson
     }
     
     public var allPeople : [SwiftAddressBookPerson]? {
@@ -141,7 +141,7 @@ public class SwiftAddressBook {
     //MARK: group records
     
     public func groupWithRecordId(recordId : Int32) -> SwiftAddressBookGroup? {
-        return SwiftAddressBookRecord(record: ABAddressBookGetGroupWithRecordID(internalAddressBook, recordId).takeUnretainedValue()).convertToGroup()
+        return self.recordWithRecord(ABAddressBookGetGroupWithRecordID(internalAddressBook, recordId).takeUnretainedValue()) as? SwiftAddressBookGroup
     }
     
     public var groupCount : Int {
@@ -165,12 +165,12 @@ public class SwiftAddressBook {
     
     public var defaultSource : SwiftAddressBookSource? {
         get {
-            return SwiftAddressBookSource(record: ABAddressBookCopyDefaultSource(internalAddressBook).takeRetainedValue())
+            return self.recordWithRecord(ABAddressBookCopyDefaultSource(internalAddressBook).takeRetainedValue()) as? SwiftAddressBookSource
         }
     }
     
     public func sourceWithRecordId(sourceId : Int32) -> SwiftAddressBookSource? {
-        return SwiftAddressBookSource(record: ABAddressBookGetSourceWithRecordID(internalAddressBook, sourceId).takeUnretainedValue())
+        return self.recordWithRecord(ABAddressBookGetSourceWithRecordID(internalAddressBook, sourceId).takeUnretainedValue()) as? SwiftAddressBookSource
     }
     
     public var allSources : [SwiftAddressBookSource]? {
@@ -182,7 +182,19 @@ public class SwiftAddressBook {
     //MARK: records
     
     public func recordWithRecord(record: ABRecord) -> SwiftAddressBookRecord! {
-        return SwiftAddressBookRecord(record: record)
+        let type = ABRecordGetRecordType(record)
+        if type == UInt32(kABSourceType) {
+            return SwiftAddressBookSource(record: record)
+            
+        } else if type == UInt32(kABGroupType) {
+            return SwiftAddressBookGroup(record: record)
+            
+        } else if type == UInt32(kABPersonType) {
+            return SwiftAddressBookPerson(record: record)
+            
+        } else {
+            return nil
+        }
     }
     
 }
