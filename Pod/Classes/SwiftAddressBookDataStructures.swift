@@ -67,6 +67,22 @@ public enum SwiftAddressBookCompositeNameFormat {
 	}
 }
 
+
+public enum SwiftAddressBookRecordType {
+    case source, group, person
+    
+    init(abRecordType : ABRecordType) {
+        switch Int(abRecordType) {
+        case kABSourceType :
+            self = .source
+        case kABGroupType :
+            self = .group
+        default :
+            self = .person
+        }
+    }
+}
+
 public enum SwiftAddressBookSourceType {
 	case local, exchange, exchangeGAL, mobileMe, LDAP, cardDAV, cardDAVSearch
 
