@@ -50,7 +50,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 	}
 
 	public class func comparePeopleByName(person1 : SwiftAddressBookPerson, person2 : SwiftAddressBookPerson, ordering : SwiftAddressBookOrdering) -> CFComparisonResult {
-		return ABPersonComparePeopleByName(person1, person2, ordering.abPersonSortOrderingValue)
+		return ABPersonComparePeopleByName(person1.internalRecord, person2.internalRecord, ordering.abPersonSortOrderingValue)
 	}
 
 
