@@ -57,8 +57,8 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 	//MARK: Personal Information
 
 	public func setImage(image : UIImage) -> CFError? {
-        let imageData : NSData = UIImagePNGRepresentation(image) ?? NSData()
-        return errorIfNoSuccess { ABPersonSetImageData(self.internalRecord,  CFDataCreate(nil, UnsafePointer(imageData.bytes), imageData.length), $0) }
+		let imageData : NSData = UIImagePNGRepresentation(image) ?? NSData()
+		return errorIfNoSuccess { ABPersonSetImageData(self.internalRecord,  CFDataCreate(nil, UnsafePointer(imageData.bytes), imageData.length), $0) }
 	}
 
 	public var image : UIImage? {
