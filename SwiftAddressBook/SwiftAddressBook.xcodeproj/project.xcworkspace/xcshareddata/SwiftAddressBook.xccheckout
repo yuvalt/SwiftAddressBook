@@ -14,11 +14,11 @@
 		<string>https://github.com/jeffreybergier/SwiftAddressBook</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>SwiftAddressBook.xcodeproj</string>
+	<string>SwiftAddressBook/SwiftAddressBook.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4EFBBF581FD0E3224EEBB82A6400A51B2CA1615A</key>
-		<string>../..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/jeffreybergier/SwiftAddressBook</string>
