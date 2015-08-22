@@ -10,13 +10,13 @@
 		734C7DEE1B88DE4A0015A5CE /* SwiftAddressBook.h in Headers */ = {isa = PBXBuildFile; fileRef = 734C7DED1B88DE4A0015A5CE /* SwiftAddressBook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		734C7DF41B88DE4A0015A5CE /* SwiftAddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734C7DE81B88DE4A0015A5CE /* SwiftAddressBook.framework */; };
 		734C7DFB1B88DE4A0015A5CE /* SwiftAddressBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734C7DFA1B88DE4A0015A5CE /* SwiftAddressBookTests.swift */; };
-		734C7E0B1B88DE6A0015A5CE /* SwiftAddressBookDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734C7E041B88DE6A0015A5CE /* SwiftAddressBookDataStructures.swift */; };
-		734C7E0C1B88DE6A0015A5CE /* SwiftAddressBookGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734C7E051B88DE6A0015A5CE /* SwiftAddressBookGroup.swift */; };
-		734C7E0D1B88DE6A0015A5CE /* SwiftAddressBookHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734C7E061B88DE6A0015A5CE /* SwiftAddressBookHelperMethods.swift */; };
-		734C7E0E1B88DE6A0015A5CE /* SwiftAddressBookPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734C7E071B88DE6A0015A5CE /* SwiftAddressBookPerson.swift */; };
-		734C7E0F1B88DE6A0015A5CE /* SwiftAddressBookRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734C7E081B88DE6A0015A5CE /* SwiftAddressBookRecord.swift */; };
-		734C7E101B88DE6A0015A5CE /* SwiftAddressBookSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734C7E091B88DE6A0015A5CE /* SwiftAddressBookSource.swift */; };
-		734C7E111B88DE6A0015A5CE /* SwiftAddressBookWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734C7E0A1B88DE6A0015A5CE /* SwiftAddressBookWrapper.swift */; };
+		73C339471B88E23700C10371 /* SwiftAddressBookDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C339401B88E23700C10371 /* SwiftAddressBookDataStructures.swift */; };
+		73C339481B88E23700C10371 /* SwiftAddressBookGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C339411B88E23700C10371 /* SwiftAddressBookGroup.swift */; };
+		73C339491B88E23700C10371 /* SwiftAddressBookHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C339421B88E23700C10371 /* SwiftAddressBookHelperMethods.swift */; };
+		73C3394A1B88E23700C10371 /* SwiftAddressBookPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C339431B88E23700C10371 /* SwiftAddressBookPerson.swift */; };
+		73C3394B1B88E23700C10371 /* SwiftAddressBookRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C339441B88E23700C10371 /* SwiftAddressBookRecord.swift */; };
+		73C3394C1B88E23700C10371 /* SwiftAddressBookSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C339451B88E23700C10371 /* SwiftAddressBookSource.swift */; };
+		73C3394D1B88E23700C10371 /* SwiftAddressBookWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C339461B88E23700C10371 /* SwiftAddressBookWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,13 +36,13 @@
 		734C7DF31B88DE4A0015A5CE /* SwiftAddressBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftAddressBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		734C7DF91B88DE4A0015A5CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		734C7DFA1B88DE4A0015A5CE /* SwiftAddressBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookTests.swift; sourceTree = "<group>"; };
-		734C7E041B88DE6A0015A5CE /* SwiftAddressBookDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookDataStructures.swift; path = ../../Pod/Classes/SwiftAddressBookDataStructures.swift; sourceTree = "<group>"; };
-		734C7E051B88DE6A0015A5CE /* SwiftAddressBookGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookGroup.swift; path = ../../Pod/Classes/SwiftAddressBookGroup.swift; sourceTree = "<group>"; };
-		734C7E061B88DE6A0015A5CE /* SwiftAddressBookHelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookHelperMethods.swift; path = ../../Pod/Classes/SwiftAddressBookHelperMethods.swift; sourceTree = "<group>"; };
-		734C7E071B88DE6A0015A5CE /* SwiftAddressBookPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookPerson.swift; path = ../../Pod/Classes/SwiftAddressBookPerson.swift; sourceTree = "<group>"; };
-		734C7E081B88DE6A0015A5CE /* SwiftAddressBookRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookRecord.swift; path = ../../Pod/Classes/SwiftAddressBookRecord.swift; sourceTree = "<group>"; };
-		734C7E091B88DE6A0015A5CE /* SwiftAddressBookSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookSource.swift; path = ../../Pod/Classes/SwiftAddressBookSource.swift; sourceTree = "<group>"; };
-		734C7E0A1B88DE6A0015A5CE /* SwiftAddressBookWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookWrapper.swift; path = ../../Pod/Classes/SwiftAddressBookWrapper.swift; sourceTree = "<group>"; };
+		73C339401B88E23700C10371 /* SwiftAddressBookDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookDataStructures.swift; path = Pod/Classes/SwiftAddressBookDataStructures.swift; sourceTree = SOURCE_ROOT; };
+		73C339411B88E23700C10371 /* SwiftAddressBookGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookGroup.swift; path = Pod/Classes/SwiftAddressBookGroup.swift; sourceTree = SOURCE_ROOT; };
+		73C339421B88E23700C10371 /* SwiftAddressBookHelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookHelperMethods.swift; path = Pod/Classes/SwiftAddressBookHelperMethods.swift; sourceTree = SOURCE_ROOT; };
+		73C339431B88E23700C10371 /* SwiftAddressBookPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookPerson.swift; path = Pod/Classes/SwiftAddressBookPerson.swift; sourceTree = SOURCE_ROOT; };
+		73C339441B88E23700C10371 /* SwiftAddressBookRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookRecord.swift; path = Pod/Classes/SwiftAddressBookRecord.swift; sourceTree = SOURCE_ROOT; };
+		73C339451B88E23700C10371 /* SwiftAddressBookSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookSource.swift; path = Pod/Classes/SwiftAddressBookSource.swift; sourceTree = SOURCE_ROOT; };
+		73C339461B88E23700C10371 /* SwiftAddressBookWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookWrapper.swift; path = Pod/Classes/SwiftAddressBookWrapper.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,13 +86,13 @@
 			isa = PBXGroup;
 			children = (
 				734C7DED1B88DE4A0015A5CE /* SwiftAddressBook.h */,
-				734C7E041B88DE6A0015A5CE /* SwiftAddressBookDataStructures.swift */,
-				734C7E051B88DE6A0015A5CE /* SwiftAddressBookGroup.swift */,
-				734C7E061B88DE6A0015A5CE /* SwiftAddressBookHelperMethods.swift */,
-				734C7E071B88DE6A0015A5CE /* SwiftAddressBookPerson.swift */,
-				734C7E081B88DE6A0015A5CE /* SwiftAddressBookRecord.swift */,
-				734C7E091B88DE6A0015A5CE /* SwiftAddressBookSource.swift */,
-				734C7E0A1B88DE6A0015A5CE /* SwiftAddressBookWrapper.swift */,
+				73C339401B88E23700C10371 /* SwiftAddressBookDataStructures.swift */,
+				73C339411B88E23700C10371 /* SwiftAddressBookGroup.swift */,
+				73C339421B88E23700C10371 /* SwiftAddressBookHelperMethods.swift */,
+				73C339431B88E23700C10371 /* SwiftAddressBookPerson.swift */,
+				73C339441B88E23700C10371 /* SwiftAddressBookRecord.swift */,
+				73C339451B88E23700C10371 /* SwiftAddressBookSource.swift */,
+				73C339461B88E23700C10371 /* SwiftAddressBookWrapper.swift */,
 				734C7DEB1B88DE4A0015A5CE /* Supporting Files */,
 			);
 			path = SwiftAddressBook;
@@ -230,13 +230,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				734C7E111B88DE6A0015A5CE /* SwiftAddressBookWrapper.swift in Sources */,
-				734C7E0E1B88DE6A0015A5CE /* SwiftAddressBookPerson.swift in Sources */,
-				734C7E0D1B88DE6A0015A5CE /* SwiftAddressBookHelperMethods.swift in Sources */,
-				734C7E101B88DE6A0015A5CE /* SwiftAddressBookSource.swift in Sources */,
-				734C7E0B1B88DE6A0015A5CE /* SwiftAddressBookDataStructures.swift in Sources */,
-				734C7E0F1B88DE6A0015A5CE /* SwiftAddressBookRecord.swift in Sources */,
-				734C7E0C1B88DE6A0015A5CE /* SwiftAddressBookGroup.swift in Sources */,
+				73C3394D1B88E23700C10371 /* SwiftAddressBookWrapper.swift in Sources */,
+				73C3394A1B88E23700C10371 /* SwiftAddressBookPerson.swift in Sources */,
+				73C339491B88E23700C10371 /* SwiftAddressBookHelperMethods.swift in Sources */,
+				73C3394C1B88E23700C10371 /* SwiftAddressBookSource.swift in Sources */,
+				73C339471B88E23700C10371 /* SwiftAddressBookDataStructures.swift in Sources */,
+				73C3394B1B88E23700C10371 /* SwiftAddressBookRecord.swift in Sources */,
+				73C339481B88E23700C10371 /* SwiftAddressBookGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
