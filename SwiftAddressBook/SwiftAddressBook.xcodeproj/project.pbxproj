@@ -11,7 +11,7 @@
 		734C7DF41B88DE4A0015A5CE /* SwiftAddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734C7DE81B88DE4A0015A5CE /* SwiftAddressBook.framework */; };
 		734C7DFB1B88DE4A0015A5CE /* SwiftAddressBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734C7DFA1B88DE4A0015A5CE /* SwiftAddressBookTests.swift */; };
 		735B58141B8A27D700DEA5EF /* Classes in Resources */ = {isa = PBXBuildFile; fileRef = 735B58131B8A27D700DEA5EF /* Classes */; };
-		735B58151B8A27F000DEA5EF /* Classes in Sources */ = {isa = PBXBuildFile; fileRef = 735B58131B8A27D700DEA5EF /* Classes */; };
+		7396C2DB1B8A2BFA00DEB287 /* Classes in Sources */ = {isa = PBXBuildFile; fileRef = 735B58131B8A27D700DEA5EF /* Classes */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,7 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				735B58151B8A27F000DEA5EF /* Classes in Sources */,
+				7396C2DB1B8A2BFA00DEB287 /* Classes in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
