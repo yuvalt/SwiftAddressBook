@@ -96,9 +96,9 @@ public class SwiftAddressBook {
     
 	public var allPeopleExcludingLinkedContacts : [SwiftAddressBookPerson]? {
 		if let all = allPeople {
-			var filtered : NSMutableArray = NSMutableArray(array: all)
+			let filtered : NSMutableArray = NSMutableArray(array: all)
 			for person in all {
-				if !contains(NSArray(array: filtered) as! [SwiftAddressBookPerson], {
+				if !(NSArray(array: filtered) as! [SwiftAddressBookPerson]).contains({
 					(SwiftAddressBookPerson p) -> Bool in
 					return p.recordID == person.recordID
 				}) {
@@ -111,7 +111,7 @@ public class SwiftAddressBook {
 				for possibleDuplicate in allFiltered {
 					if let linked = person.allLinkedPeople {
 						if possibleDuplicate.recordID != person.recordID
-							&& contains(linked, {
+							&& linked.contains({
 								(SwiftAddressBookPerson p) -> Bool in
 								return p.recordID == possibleDuplicate.recordID
 							}) {
