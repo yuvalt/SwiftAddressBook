@@ -85,7 +85,7 @@ public class SwiftAddressBook {
     }
     
     public func personWithRecordId(recordId : Int32) -> SwiftAddressBookPerson? {
-        return SwiftAddressBookRecord.from(ABAddressBookGetPersonWithRecordID(internalAddressBook, recordId).takeUnretainedValue()) as? SwiftAddressBookPerson
+        return SwiftAddressBookRecord.from(ABAddressBookGetPersonWithRecordID(internalAddressBook, recordId)?.takeUnretainedValue()) as? SwiftAddressBookPerson
     }
     
     public var allPeople : [SwiftAddressBookPerson]? {
@@ -141,7 +141,7 @@ public class SwiftAddressBook {
     //MARK: group records
     
     public func groupWithRecordId(recordId : Int32) -> SwiftAddressBookGroup? {
-        return SwiftAddressBookRecord.from(ABAddressBookGetGroupWithRecordID(internalAddressBook, recordId).takeUnretainedValue()) as? SwiftAddressBookGroup
+        return SwiftAddressBookRecord.from(ABAddressBookGetGroupWithRecordID(internalAddressBook, recordId)?.takeUnretainedValue()) as? SwiftAddressBookGroup
     }
     
     public var groupCount : Int {
@@ -165,12 +165,12 @@ public class SwiftAddressBook {
     
     public var defaultSource : SwiftAddressBookSource? {
         get {
-            return SwiftAddressBookRecord.from(ABAddressBookCopyDefaultSource(internalAddressBook).takeRetainedValue()) as? SwiftAddressBookSource
+            return SwiftAddressBookRecord.from(ABAddressBookCopyDefaultSource(internalAddressBook)?.takeRetainedValue()) as? SwiftAddressBookSource
         }
     }
     
     public func sourceWithRecordId(sourceId : Int32) -> SwiftAddressBookSource? {
-        return SwiftAddressBookRecord.from(ABAddressBookGetSourceWithRecordID(internalAddressBook, sourceId).takeUnretainedValue()) as? SwiftAddressBookSource
+        return SwiftAddressBookRecord.from(ABAddressBookGetSourceWithRecordID(internalAddressBook, sourceId)?.takeUnretainedValue()) as? SwiftAddressBookSource
     }
     
     public var allSources : [SwiftAddressBookSource]? {

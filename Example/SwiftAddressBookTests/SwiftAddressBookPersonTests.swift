@@ -38,6 +38,12 @@ class SwiftAddressBookPersonTests: XCTestCase {
 		swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
 			XCTAssertTrue(success, self.accessError)
 			if success {
+
+				//test for nonexisting record id
+				if let person = swiftAddressBook?.personWithRecordId(INT32_MAX) {
+					XCTAssert(false, "Person with nonexisting record id should return null")
+				}
+
 				let optionalPerson = swiftAddressBook?.allPeople?.filter({ p in p.firstName == "Kate" }).first
 				XCTAssertNotNil(optionalPerson, "Failed to get person 1 \"Kate Bell\" from sample address book")
 				if let person = optionalPerson {
