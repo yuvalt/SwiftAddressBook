@@ -26,6 +26,23 @@ public class SwiftAddressBook {
     
     public var internalAddressBook : ABAddressBook!
     
+	/**
+	PRECAUTION: do not use this function unless you are aware why it exists,
+	and what you have to take care about using multiple instances.
+	Creating multiple AddressBooks is required for using ABAddressBook multi-
+	threaded. Though, it leads to several issues:
+	You must reset the address book instances individually in order to keep
+	them synchronized. Contacts saved to one AddressBook are not visible in
+	another until revert() was called.
+	Additionally, it is not entirely clear what happens when simultaneously
+	saving two AddressBook instances using save(). To prevent errors, keep
+	the calls to save() sequential. It is not clear whether changes are
+	overridden by another save() call, to be sure what it does try out first.
+	*/
+	public class func createAddressBookForAdditionalThread() -> SwiftAddressBook? {
+		return SwiftAddressBook(0)
+	}
+
     private init?(_ dummy : Int) {
         var err : Unmanaged<CFError>? = nil
         let ab = ABAddressBookCreateWithOptions(nil, &err)
