@@ -36,13 +36,13 @@ class SwiftAddressBookGroupTests: XCTestCase {
 	//MARK: - Helper funtions
 
     func getDateTimestamp() -> String {
-        var formatter = NSDateFormatter()
+        let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
         return formatter.stringFromDate(NSDate())
     }
     
     func getDate(year: Int,_ month: Int,_ day: Int) -> NSDate {
-        var components = NSDateComponents()
+        let components = NSDateComponents()
         components.year = year
         components.month = month
         components.day = day
