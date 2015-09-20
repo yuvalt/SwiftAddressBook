@@ -13,10 +13,17 @@ import AddressBook
 
 public class SwiftAddressBookRecord {
 
-	public var internalRecord : ABRecord
+	public var internalRecord : ABRecord!
 
 	init(record : ABRecord) {
 		internalRecord = record
+	}
+
+	init?(record : ABRecord!) {
+		internalRecord = record
+		if record == nil {
+			return nil
+		}
 	}
 
 	public var recordID: Int {
@@ -43,7 +50,7 @@ public class SwiftAddressBookRecord {
         return self as? SwiftAddressBookPerson
     }
     
-    public static func from(record: ABRecord) -> SwiftAddressBookRecord? {
+    public static func from(record: ABRecord?) -> SwiftAddressBookRecord? {
         let type = ABRecordGetRecordType(record)
         if type == UInt32(kABSourceType) {
             return SwiftAddressBookSource(record: record)

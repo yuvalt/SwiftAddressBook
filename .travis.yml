@@ -2,13 +2,11 @@ language: objective-c
 osx_image: xcode7
 podfile: Example/Podfile
 
-branches:
-  except:
-    - swift_2.0
-
 before_install:
     - gem install cocoapods --quiet
     - "xcrun instruments -w 'iPhone 6 (8.1 Simulator)' || true"
+    - sleep 20
+    - sleep 20
     - sleep 20
     - perl allowAccess
 

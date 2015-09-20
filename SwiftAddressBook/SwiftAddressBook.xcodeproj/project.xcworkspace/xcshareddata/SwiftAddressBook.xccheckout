@@ -5,23 +5,23 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>4B09CE86-D11E-43C3-93A4-D9AE3103A860</string>
+	<string>3336BFE3-ACE3-4D60-A552-85C4EBEB42BF</string>
 	<key>IDESourceControlProjectName</key>
-	<string>SwiftAddressBookExample</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>4EFBBF581FD0E3224EEBB82A6400A51B2CA1615A</key>
-		<string>https://github.com/albertbori/SwiftAddressBook.git</string>
+		<string>https://github.com/jeffreybergier/SwiftAddressBook</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Example/SwiftAddressBookExample.xcworkspace</string>
+	<string>SwiftAddressBook/SwiftAddressBook.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4EFBBF581FD0E3224EEBB82A6400A51B2CA1615A</key>
-		<string>../..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/albertbori/SwiftAddressBook.git</string>
+	<string>https://github.com/jeffreybergier/SwiftAddressBook</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>

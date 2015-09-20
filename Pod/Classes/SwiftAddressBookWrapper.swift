@@ -26,6 +26,23 @@ public class SwiftAddressBook {
     
     public var internalAddressBook : ABAddressBook!
     
+	/**
+	PRECAUTION: do not use this function unless you are aware why it exists,
+	and what you have to take care about using multiple instances.
+	Creating multiple AddressBooks is required for using ABAddressBook multi-
+	threaded. Though, it leads to several issues:
+	You must reset the address book instances individually in order to keep
+	them synchronized. Contacts saved to one AddressBook are not visible in
+	another until revert() was called.
+	Additionally, it is not entirely clear what happens when simultaneously
+	saving two AddressBook instances using save(). To prevent errors, keep
+	the calls to save() sequential. It is not clear whether changes are
+	overridden by another save() call, to be sure what it does try out first.
+	*/
+	public class func createAddressBookForAdditionalThread() -> SwiftAddressBook? {
+		return SwiftAddressBook(0)
+	}
+
     private init?(_ dummy : Int) {
         var err : Unmanaged<CFError>? = nil
         let ab = ABAddressBookCreateWithOptions(nil, &err)
@@ -85,7 +102,7 @@ public class SwiftAddressBook {
     }
     
     public func personWithRecordId(recordId : Int32) -> SwiftAddressBookPerson? {
-        return SwiftAddressBookRecord.from(ABAddressBookGetPersonWithRecordID(internalAddressBook, recordId).takeUnretainedValue()) as? SwiftAddressBookPerson
+        return SwiftAddressBookRecord.from(ABAddressBookGetPersonWithRecordID(internalAddressBook, recordId)?.takeUnretainedValue()) as? SwiftAddressBookPerson
     }
     
     public var allPeople : [SwiftAddressBookPerson]? {
@@ -141,7 +158,7 @@ public class SwiftAddressBook {
     //MARK: group records
     
     public func groupWithRecordId(recordId : Int32) -> SwiftAddressBookGroup? {
-        return SwiftAddressBookRecord.from(ABAddressBookGetGroupWithRecordID(internalAddressBook, recordId).takeUnretainedValue()) as? SwiftAddressBookGroup
+        return SwiftAddressBookRecord.from(ABAddressBookGetGroupWithRecordID(internalAddressBook, recordId)?.takeUnretainedValue()) as? SwiftAddressBookGroup
     }
     
     public var groupCount : Int {
@@ -165,12 +182,12 @@ public class SwiftAddressBook {
     
     public var defaultSource : SwiftAddressBookSource? {
         get {
-            return SwiftAddressBookRecord.from(ABAddressBookCopyDefaultSource(internalAddressBook).takeRetainedValue()) as? SwiftAddressBookSource
+            return SwiftAddressBookRecord.from(ABAddressBookCopyDefaultSource(internalAddressBook)?.takeRetainedValue()) as? SwiftAddressBookSource
         }
     }
     
     public func sourceWithRecordId(sourceId : Int32) -> SwiftAddressBookSource? {
-        return SwiftAddressBookRecord.from(ABAddressBookGetSourceWithRecordID(internalAddressBook, sourceId).takeUnretainedValue()) as? SwiftAddressBookSource
+        return SwiftAddressBookRecord.from(ABAddressBookGetSourceWithRecordID(internalAddressBook, sourceId)?.takeUnretainedValue()) as? SwiftAddressBookSource
     }
     
     public var allSources : [SwiftAddressBookSource]? {
