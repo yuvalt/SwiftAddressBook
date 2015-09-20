@@ -40,7 +40,7 @@ class SwiftAddressBookPersonTests: XCTestCase {
 			if success {
 
 				//test for nonexisting record id
-				if let person = swiftAddressBook?.personWithRecordId(INT32_MAX) {
+				if let _ = swiftAddressBook?.personWithRecordId(INT32_MAX) {
 					XCTAssert(false, "Person with nonexisting record id should return null")
 				}
 
