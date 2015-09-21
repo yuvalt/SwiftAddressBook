@@ -25,7 +25,7 @@ class TableViewController: UITableViewController {
         swiftAddressBook?.requestAccessWithCompletion { (b :Bool, _ :CFError?) -> Void in
             if b {
                 
-                //to test adding a new person uncomment the following 
+                //TODO: to test adding a new person uncomment the following
 
 				/*
                 var person = SwiftAddressBookPerson.create()
@@ -50,7 +50,7 @@ class TableViewController: UITableViewController {
 
                 self.people = swiftAddressBook?.allPeople
                 
-                //to test adding a new group uncomment the following
+                //TODO: to test adding a new group uncomment the following
                 /*
                 var group = SwiftAddressBookGroup.create()
                 
@@ -69,7 +69,8 @@ class TableViewController: UITableViewController {
                 swiftAddressBook?.save()
                 */
 
-                
+
+				/* TODO: COMMENT IN IF YOU ARE NOT RUNNING UNIT TESTS
                 //save objects for tableview
                 
                 let sources = swiftAddressBook?.allSources
@@ -92,6 +93,7 @@ class TableViewController: UITableViewController {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
                 })
+				*/
             }
         }
     }
@@ -104,7 +106,10 @@ class TableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return groups == nil ? 1 : groups!.count+1
+			/* prevent concurrency bugs in testing */
+			return 0
+			//TODO: COMMENT IN IF YOU ARE NOT RUNNING UNIT TESTS
+			//return groups == nil ? 1 : groups!.count+1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,7 +140,10 @@ class TableViewController: UITableViewController {
             cell.phoneNumberLabel.text = numbers![indexPath.row]?.first!
         }
         else {
-            cell.nameLabel.text = groups![indexPath.section].allMembers![indexPath.row].compositeName
+			let group = groups![indexPath.section]
+			let member = group.allMembers![indexPath.row]
+			let name = member.compositeName
+            cell.nameLabel.text = name
         }
 
         return cell
@@ -149,50 +157,5 @@ class TableViewController: UITableViewController {
             return groups![section].name
         }
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
