@@ -247,8 +247,6 @@ public enum SwiftAddressBookAddressProperty {
 				return String(kABPersonAddressCountryKey)
 			case .countryCode :
 				return String(kABPersonAddressCountryCodeKey)
-			default:
-				return String(kABPersonAddressStreetKey)
 			}
 		}
 	}

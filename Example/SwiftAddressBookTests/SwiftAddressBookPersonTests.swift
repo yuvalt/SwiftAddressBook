@@ -40,7 +40,7 @@ class SwiftAddressBookPersonTests: XCTestCase {
 			if success {
 
 				//test for nonexisting record id
-				if let person = swiftAddressBook?.personWithRecordId(INT32_MAX) {
+				if let _ = swiftAddressBook?.personWithRecordId(INT32_MAX) {
 					XCTAssert(false, "Person with nonexisting record id should return null")
 				}
 
@@ -53,7 +53,7 @@ class SwiftAddressBookPersonTests: XCTestCase {
 					XCTAssert(person.organization == "Creative Consulting", "Organization was wrong")
 					XCTAssert(person.phoneNumbers != nil, "Phone numbers collection was nil")
 
-					if let image = person.image {
+					if let _ = person.image {
 						XCTAssert(false, "this person has no image, but returns one!");
 					}
 
@@ -105,7 +105,7 @@ class SwiftAddressBookPersonTests: XCTestCase {
             XCTAssertTrue(success, self.accessError)
             if success {
                 var optionalPerson: SwiftAddressBookPerson? = SwiftAddressBookPerson.create()
-                var timeStamp = self.getDateTimestamp()
+                let timeStamp = self.getDateTimestamp()
                 if let person = optionalPerson {
 
                     //TODO: test ALL fields
@@ -113,17 +113,17 @@ class SwiftAddressBookPersonTests: XCTestCase {
                     person.lastName = "Vader" + timeStamp
                     person.nickname = "Anakin" + timeStamp
                     person.note = "Super-high midi-chlorian count" + timeStamp
-                    var email = MultivalueEntry(value: "darthvader@mailinator.com", label: "home", id: 0)
+                    let email = MultivalueEntry(value: "darthvader@mailinator.com", label: "home", id: 0)
                     person.emails = [email]
-                    var phone = MultivalueEntry(value: "(555) 555-1234", label: "office", id: 0)
+                    let phone = MultivalueEntry(value: "(555) 555-1234", label: "office", id: 0)
                     person.phoneNumbers = [phone]
-                    var addressData = [
+                    let addressData = [
                         SwiftAddressBookAddressProperty.street: "123 Main Bridge" as AnyObject, //TODO: Can we make it so they don't have to cast here, please?
                         SwiftAddressBookAddressProperty.city: "Upper Sphere" as AnyObject,
                         SwiftAddressBookAddressProperty.state: "Death Star" as AnyObject,
                         SwiftAddressBookAddressProperty.zip: "12345" as AnyObject
                     ]
-                    var address = MultivalueEntry(value: addressData, label: "work", id: 0)
+                    let address = MultivalueEntry(value: addressData, label: "work", id: 0)
                     person.addresses = [address]
                     swiftAddressBook?.addRecord(person)
                     swiftAddressBook?.save()
@@ -158,7 +158,7 @@ class SwiftAddressBookPersonTests: XCTestCase {
             XCTAssertTrue(success, self.accessError)
             if success {
                 var optionalPerson: SwiftAddressBookPerson? = SwiftAddressBookPerson.create()
-                var timeStamp = self.getDateTimestamp()
+                let timeStamp = self.getDateTimestamp()
                 if let person = optionalPerson {
                     person.firstName = "Test" + timeStamp;
                     swiftAddressBook?.addRecord(person)
@@ -175,17 +175,17 @@ class SwiftAddressBookPersonTests: XCTestCase {
                         person.lastName = "Vader" + timeStamp
                         person.nickname = "Anakin" + timeStamp
                         person.note = "Super-high midi-chlorian count" + timeStamp
-                        var email = MultivalueEntry(value: "darthvader@mailinator.com", label: "home", id: 0)
+                        let email = MultivalueEntry(value: "darthvader@mailinator.com", label: "home", id: 0)
                         person.emails = [email]
-                        var phone = MultivalueEntry(value: "(555) 555-1234", label: "office", id: 0)
+                        let phone = MultivalueEntry(value: "(555) 555-1234", label: "office", id: 0)
                         person.phoneNumbers = [phone]
-                        var addressData = [
+                        let addressData = [
                             SwiftAddressBookAddressProperty.street: "123 Main Bridge" as AnyObject, //TODO: Can we make it so they don't have to cast here, please?
                             SwiftAddressBookAddressProperty.city: "Upper Sphere" as AnyObject,
                             SwiftAddressBookAddressProperty.state: "Death Star" as AnyObject,
                             SwiftAddressBookAddressProperty.zip: "12345" as AnyObject
                         ]
-                        var address = MultivalueEntry(value: addressData, label: "work", id: 0)
+                        let address = MultivalueEntry(value: addressData, label: "work", id: 0)
                         person.addresses = [address]
                         
                         swiftAddressBook?.save()
@@ -258,7 +258,7 @@ class SwiftAddressBookPersonTests: XCTestCase {
 				XCTAssert(person.phoneNumbers == nil, "phone numbers should be nil")
 				XCTAssert(person.firstName == nil, "first name should be nil")
 
-				if let label = person.addresses?.first?.label {
+				if let _ = person.addresses?.first?.label {
 					XCTAssert(false, "label of first address must not be unwrapped")
 				}
 
@@ -269,15 +269,15 @@ class SwiftAddressBookPersonTests: XCTestCase {
 					XCTAssert(false, "should be able to unwrap label of second address")
 				}
 
-				if let socialProfiles = person.socialProfiles {
+				if let _ = person.socialProfiles {
 					XCTAssert(false, "social profiles must not be unwrapped")
 				}
 
-				if let phoneNumbers = person.phoneNumbers {
+				if let _ = person.phoneNumbers {
 					XCTAssert(false, "phone numbers must not be unwrapped")
 				}
 
-				if let label = person.firstName {
+				if let _ = person.firstName {
 					XCTAssert(false, "first name must not be unwrapped")
 				}
 
@@ -291,7 +291,7 @@ class SwiftAddressBookPersonTests: XCTestCase {
 
 				XCTAssert(person.addresses?.count == 2, "person should have exactly 2 addresses")
 
-				if let label = person.addresses?.last?.label {
+				if let _ = person.addresses?.last?.label {
 					XCTAssert(false, "label of second address cannot be unwrapped")
 				}
 
@@ -343,13 +343,13 @@ class SwiftAddressBookPersonTests: XCTestCase {
 	//MARK: - Helper funtions
 
 	func getDateTimestamp() -> String {
-		var formatter = NSDateFormatter()
+		let formatter = NSDateFormatter()
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
 		return formatter.stringFromDate(NSDate())
 	}
 
 	func getDate(year: Int,_ month: Int,_ day: Int,_ hour: Int) -> NSDate {
-		var components = NSDateComponents()
+		let components = NSDateComponents()
 		components.year = year
 		components.month = month
 		components.day = day
