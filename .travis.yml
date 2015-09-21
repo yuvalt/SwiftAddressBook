@@ -4,7 +4,7 @@ podfile: Example/Podfile
 
 before_install:
     - gem install cocoapods --quiet
-    - "xcrun instruments -w 'iPhone 6 (9.0)' || true"
+    - "xcrun instruments -w 'iPhone 5 (9.0)' || true"
     - sleep 20
     - sleep 20
     - sleep 20
@@ -12,4 +12,4 @@ before_install:
     - brew uninstall xctool && brew install --HEAD xctool
 
 script:
-    - "xctool -workspace Example/SwiftAddressBookExample.xcworkspace -sdk iphonesimulator -scheme SwiftAddressBookTests -destination platform='iOS Simulator','OS=9.0',name='iPhone 6' build test"
+    - "xctool -workspace Example/SwiftAddressBookExample.xcworkspace -sdk iphonesimulator -scheme SwiftAddressBookTests -destination platform='iOS Simulator','OS=9.0',name='iPhone 5' build test"
