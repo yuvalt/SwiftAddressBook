@@ -31,6 +31,36 @@ class SwiftAddressBookPersonTests: XCTestCase {
 
 	//TODO: test person related methods from swiftaddressbook
 
+	func testSetRetrieveImage() {
+
+		let testExpectation = expectationWithDescription("testSetRetrieveImage")
+
+		swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
+			XCTAssertTrue(success, self.accessError)
+			if success {
+				/* test with unrotated image */
+				let p = SwiftAddressBookPerson.create()
+
+				let image = UIImage(named: "testImage")!
+				p.setImage(image)
+				XCTAssertTrue(UIImagePNGRepresentation(image)!.isEqual(UIImagePNGRepresentation(p.image!)!),
+					"Images must stay the same after setting and retrieving again")
+
+				/* test with differently oriented image */
+				let imageRotated = UIImage(CGImage: image.CGImage!, scale: 1.0, orientation: UIImageOrientation.DownMirrored)
+				p.setImage(imageRotated)
+				XCTAssertTrue(UIImagePNGRepresentation(imageRotated)!.isEqual(UIImagePNGRepresentation(p.image!)!),
+					"Images must stay the same after setting and retrieving again")
+
+			} else {
+				XCTAssertNotNil(error, self.accessErrorNil)
+			}
+			testExpectation.fulfill()
+		})
+
+		waitForExpectationsWithTimeout(waitTime, handler: nil)
+	}
+
 	func testGetPerson() {
 
 		let testExpectation = expectationWithDescription("testGetPerson")
