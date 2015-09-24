@@ -61,6 +61,27 @@ class SwiftAddressBookPersonTests: XCTestCase {
 		waitForExpectationsWithTimeout(waitTime, handler: nil)
 	}
 
+	func testCompositeName() {
+		let testExpectation = expectationWithDescription("testGetPerson")
+
+		swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
+			XCTAssertTrue(success, self.accessError)
+			if success {
+				let p = SwiftAddressBookPerson.create()
+				p.firstName = "firstname"
+				XCTAssertEqual("firstname", p.compositeName, "composite name should consist first name when no lastname is set")
+				p.lastName = "lastname"
+				XCTAssertTrue((p.compositeName ?? "").containsString("lastname"), "composite name should contain first and last name")
+			} else {
+				XCTAssertNotNil(error, self.accessErrorNil)
+			}
+
+			testExpectation.fulfill()
+		})
+
+		waitForExpectationsWithTimeout(waitTime, handler: nil)
+	}
+
 	func testGetPerson() {
 
 		let testExpectation = expectationWithDescription("testGetPerson")
