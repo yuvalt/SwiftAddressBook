@@ -105,8 +105,8 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 
 	public var compositeName : String? {
 		get {
-			let optionalCompositeName = ABRecordCopyCompositeName(internalRecord)?.takeRetainedValue()
-			return optionalCompositeName == nil ? nil : optionalCompositeName! as String
+			let compositeName = ABRecordCopyCompositeName(internalRecord)?.takeRetainedValue() as NSString?
+			return compositeName as? String
 		}
 	}
 
