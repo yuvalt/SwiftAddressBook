@@ -17,8 +17,8 @@
 		85C301881ABDB13E0026214B /* SwiftAddressBookSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C301861ABDB13E0026214B /* SwiftAddressBookSourceTests.swift */; };
 		85DA60151A8FC05400EC0EC6 /* AddressViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DA60131A8FC05400EC0EC6 /* AddressViewCell.swift */; };
 		85DA60161A8FC05400EC0EC6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DA60141A8FC05400EC0EC6 /* TableViewController.swift */; };
-		8994F3A7051332B6F05F9A6A /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45D1995FD5B568E95630AA9 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		8D1A5D88675445E9E7EB78D4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45D1995FD5B568E95630AA9 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		8994F3A7051332B6F05F9A6A /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45D1995FD5B568E95630AA9 /* Pods.framework */; };
+		8D1A5D88675445E9E7EB78D4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45D1995FD5B568E95630AA9 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

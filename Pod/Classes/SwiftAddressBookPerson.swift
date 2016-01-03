@@ -62,13 +62,14 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 	}
 
 	public var image : UIImage? {
-		get {
-			return ABPersonHasImageData(internalRecord) ? UIImage(data: ABPersonCopyImageData(internalRecord).takeRetainedValue()) : nil
-		}
+		return ABPersonHasImageData(internalRecord) ? UIImage(data: ABPersonCopyImageData(internalRecord).takeRetainedValue()) : nil
 	}
 
 	public func imageDataWithFormat(format : SwiftAddressBookPersonImageFormat) -> UIImage? {
-		return UIImage(data: ABPersonCopyImageDataWithFormat(internalRecord, format.abPersonImageFormat).takeRetainedValue())
+		guard let data = ABPersonCopyImageDataWithFormat(internalRecord, format.abPersonImageFormat)?.takeRetainedValue() else {
+			return nil
+		}
+		return UIImage(data: data)
 	}
 
 	public func hasImageData() -> Bool {
@@ -80,34 +81,24 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 	}
 
 	public var allLinkedPeople : Array<SwiftAddressBookPerson>? {
-		get {
-			return convertRecordsToPersons(ABPersonCopyArrayOfAllLinkedPeople(internalRecord).takeRetainedValue())
-		}
+		return convertRecordsToPersons(ABPersonCopyArrayOfAllLinkedPeople(internalRecord).takeRetainedValue())
 	}
 
 	public var source : SwiftAddressBookSource {
-		get {
-			return SwiftAddressBookSource(record: ABPersonCopySource(internalRecord).takeRetainedValue())
-		}
+		return SwiftAddressBookSource(record: ABPersonCopySource(internalRecord).takeRetainedValue())
 	}
 
 	public var compositeNameDelimiterForRecord : String {
-		get {
-			return ABPersonCopyCompositeNameDelimiterForRecord(internalRecord).takeRetainedValue() as String
-		}
+		return ABPersonCopyCompositeNameDelimiterForRecord(internalRecord).takeRetainedValue() as String
 	}
 
 	public var compositeNameFormat : SwiftAddressBookCompositeNameFormat {
-		get {
-			return SwiftAddressBookCompositeNameFormat(format: ABPersonGetCompositeNameFormatForRecord(internalRecord))
-		}
+		return SwiftAddressBookCompositeNameFormat(format: ABPersonGetCompositeNameFormatForRecord(internalRecord))
 	}
 
 	public var compositeName : String? {
-		get {
-			let compositeName = ABRecordCopyCompositeName(internalRecord)?.takeRetainedValue() as NSString?
-			return compositeName as? String
-		}
+		let compositeName = ABRecordCopyCompositeName(internalRecord)?.takeRetainedValue() as NSString?
+		return compositeName as? String
 	}
 
 	public var firstName : String? {
@@ -378,12 +369,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 					id: id))
 			}
 		}
-		if array.count > 0 {
-			return array
-		}
-		else {
-			return nil
-		}
+		return !array.isEmpty ? array : nil
 	}
 
 	private func extractMultivalueDictionaryProperty<T : NSCopying, U, V, W>(propertyName : ABPropertyID, keyConverter : (T) -> V, valueConverter : (U) -> W ) -> Array<MultivalueEntry<Dictionary<V, W>>>? {

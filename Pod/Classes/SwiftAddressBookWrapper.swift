@@ -18,41 +18,13 @@ import AddressBook
 
 //MARK: global address book variable
 
-public let swiftAddressBook : SwiftAddressBook? = SwiftAddressBook(0)
+public let swiftAddressBook : SwiftAddressBook? = SwiftAddressBook()
 
 //MARK: Address Book
 
 public class SwiftAddressBook {
     
     public var internalAddressBook : ABAddressBook!
-    
-	/**
-	PRECAUTION: do not use this function unless you are aware why it exists,
-	and what you have to take care about using multiple instances.
-	Creating multiple AddressBooks is required for using ABAddressBook multi-
-	threaded. Though, it leads to several issues:
-	You must reset the address book instances individually in order to keep
-	them synchronized. Contacts saved to one AddressBook are not visible in
-	another until revert() was called.
-	Additionally, it is not entirely clear what happens when simultaneously
-	saving two AddressBook instances using save(). To prevent errors, keep
-	the calls to save() sequential. It is not clear whether changes are
-	overridden by another save() call, to be sure what it does try out first.
-	*/
-	public class func createAddressBookForAdditionalThread() -> SwiftAddressBook? {
-		return SwiftAddressBook(0)
-	}
-
-    private init?(_ dummy : Int) {
-        var err : Unmanaged<CFError>? = nil
-        let ab = ABAddressBookCreateWithOptions(nil, &err)
-        if err == nil {
-            internalAddressBook = ab.takeRetainedValue()
-        }
-        else {
-            return nil
-        }
-    }
     
     public class func authorizationStatus() -> ABAuthorizationStatus {
         return ABAddressBookGetAuthorizationStatus()
@@ -81,18 +53,6 @@ public class SwiftAddressBook {
     public func removeRecord(record : SwiftAddressBookRecord) -> CFError? {
         return errorIfNoSuccess { ABAddressBookRemoveRecord(self.internalAddressBook, record.internalRecord, $0) }
     }
-    
-//    //This function does not yet work
-//    public func registerExternalChangeCallback(callback: (AnyObject) -> Void) {
-//        //call some objective C function (c function pointer does not work in swift)
-//    }
-//
-//    //This function does not yet work
-//    public func unregisterExternalChangeCallback(callback: (AnyObject) -> Void) {
-//        //call some objective C function (c function pointer does not work in swift)
-//    }
-    
-    
     //MARK: person records
     
     public var personCount : Int {
@@ -102,7 +62,7 @@ public class SwiftAddressBook {
     }
     
     public func personWithRecordId(recordId : Int32) -> SwiftAddressBookPerson? {
-        return SwiftAddressBookRecord.from(ABAddressBookGetPersonWithRecordID(internalAddressBook, recordId)?.takeUnretainedValue()) as? SwiftAddressBookPerson
+        return SwiftAddressBookPerson(record: ABAddressBookGetPersonWithRecordID(internalAddressBook, recordId)?.takeUnretainedValue())
     }
     
     public var allPeople : [SwiftAddressBookPerson]? {
@@ -111,6 +71,35 @@ public class SwiftAddressBook {
         }
     }
     
+	private lazy var addressBookObserver = SwiftAddressBookObserver()
+
+	public init?() {
+		var err : Unmanaged<CFError>? = nil
+		let ab = ABAddressBookCreateWithOptions(nil, &err)
+		if err == nil {
+			internalAddressBook = ab.takeRetainedValue()
+		}
+		else {
+			return nil
+		}
+	}
+
+
+
+	public func registerExternalChangeCallback(callback: () -> Void) {
+
+		addressBookObserver.startObserveChangesWithCallback { (addressBook) -> Void in
+			callback()
+		}
+	}
+
+	public func unregisterExternalChangeCallback(callback: () -> Void) {
+		addressBookObserver.stopObserveChanges()
+		callback()
+	}
+
+
+
 	public var allPeopleExcludingLinkedContacts : [SwiftAddressBookPerson]? {
 		if let all = allPeople {
 			let filtered : NSMutableArray = NSMutableArray(array: all)
@@ -158,7 +147,7 @@ public class SwiftAddressBook {
     //MARK: group records
     
     public func groupWithRecordId(recordId : Int32) -> SwiftAddressBookGroup? {
-        return SwiftAddressBookRecord.from(ABAddressBookGetGroupWithRecordID(internalAddressBook, recordId)?.takeUnretainedValue()) as? SwiftAddressBookGroup
+		return SwiftAddressBookGroup(record: ABAddressBookGetGroupWithRecordID(internalAddressBook, recordId)?.takeUnretainedValue())
     }
     
     public var groupCount : Int {
@@ -182,12 +171,12 @@ public class SwiftAddressBook {
     
     public var defaultSource : SwiftAddressBookSource? {
         get {
-            return SwiftAddressBookRecord.from(ABAddressBookCopyDefaultSource(internalAddressBook)?.takeRetainedValue()) as? SwiftAddressBookSource
+            return SwiftAddressBookSource(record: ABAddressBookCopyDefaultSource(internalAddressBook)?.takeRetainedValue())
         }
     }
     
     public func sourceWithRecordId(sourceId : Int32) -> SwiftAddressBookSource? {
-        return SwiftAddressBookRecord.from(ABAddressBookGetSourceWithRecordID(internalAddressBook, sourceId)?.takeUnretainedValue()) as? SwiftAddressBookSource
+        return SwiftAddressBookSource(record: ABAddressBookGetSourceWithRecordID(internalAddressBook, sourceId)?.takeUnretainedValue())
     }
     
     public var allSources : [SwiftAddressBookSource]? {

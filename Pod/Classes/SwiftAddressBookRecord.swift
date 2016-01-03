@@ -15,57 +15,26 @@ public class SwiftAddressBookRecord {
 
 	public var internalRecord : ABRecord!
 
-	init(record : ABRecord) {
-		internalRecord = record
-	}
-
-	init?(record : ABRecord!) {
-		internalRecord = record
-		if record == nil {
+	public convenience init?(record : ABRecord?) {
+		if let rec = record {
+			self.init(record: rec)
+		}
+		else {
 			return nil
 		}
 	}
 
+	public init(record : ABRecord) {
+		self.internalRecord = record
+	}
+
 	public var recordID: Int {
-		get {
-			return Int(ABRecordGetRecordID(self.internalRecord))
-		}
-    }
-    
-    public var recordType: SwiftAddressBookRecordType {
-        get {
-            return SwiftAddressBookRecordType(abRecordType: ABRecordGetRecordType(self.internalRecord))
-        }
-    }
-
-	public func convertToSource() -> SwiftAddressBookSource? {
-        return self as? SwiftAddressBookSource
+		return Int(ABRecordGetRecordID(self.internalRecord))
 	}
 
-	public func convertToGroup() -> SwiftAddressBookGroup? {
-		return self as? SwiftAddressBookGroup
+	public var recordType: SwiftAddressBookRecordType {
+		return SwiftAddressBookRecordType(abRecordType: ABRecordGetRecordType(self.internalRecord))
 	}
-
-    public func convertToPerson() -> SwiftAddressBookPerson? {
-        return self as? SwiftAddressBookPerson
-    }
-    
-    public static func from(record: ABRecord?) -> SwiftAddressBookRecord? {
-        let type = ABRecordGetRecordType(record)
-        if type == UInt32(kABSourceType) {
-            return SwiftAddressBookSource(record: record)
-            
-        } else if type == UInt32(kABGroupType) {
-            return SwiftAddressBookGroup(record: record)
-            
-        } else if type == UInt32(kABPersonType) {
-            return SwiftAddressBookPerson(record: record)
-            
-        } else {
-            return nil
-        }
-    }
-
 }
 
 extension SwiftAddressBookRecord: Hashable {
