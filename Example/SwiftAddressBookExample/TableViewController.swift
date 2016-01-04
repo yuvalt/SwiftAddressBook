@@ -12,150 +12,153 @@ import AddressBook
 
 class TableViewController: UITableViewController {
 
-    
-    var groups : [SwiftAddressBookGroup]? = []
-    var people : [SwiftAddressBookPerson]? = []
-    var names : [String?]? = []
-    var numbers : [Array<String?>?]? = []
-    var birthdates : [NSDate?]? = []
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        SwiftAddressBook.requestAccessWithCompletion { (b :Bool, _ :CFError?) -> Void in
-            if b {
-                
-                //TODO: to test adding a new person uncomment the following
 
-				/*
-                var person = SwiftAddressBookPerson.create()
-                person.firstName = "newTestuserFirstname"
-                person.lastName = "newTestuserLastname"
-                person.organization = "newTestuserCompanyname"
-                
-                var phone = MultivalueEntry(value: "newTestuserNumber", label: "mobile", id: 1)
-                person.phoneNumbers = [phone]
+	var groups : [SwiftAddressBookGroup]?
+	var people : [SwiftAddressBookPerson]?
+	var names : [String?]? = []
+	var numbers : [Array<String?>?]? = []
+	var birthdates : [NSDate?]? = []
 
-				var addresses : Array<MultivalueEntry<Dictionary<SwiftAddressBookAddressProperty,AnyObject>>>? = nil
-				let address1 = [SwiftAddressBookAddressProperty.street:"testStreet" as AnyObject, SwiftAddressBookAddressProperty.city:"testCity"];
-				let address2 = [SwiftAddressBookAddressProperty.street:"testStreet2" as AnyObject, SwiftAddressBookAddressProperty.city:"testCity2"];
-				addresses = [MultivalueEntry(value: address1, label: kABWorkLabel, id: 0),MultivalueEntry(value: address2, label: kABHomeLabel, id: 0)];
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
-				person.addresses = addresses;
-                
-                swiftAddressBook?.addRecord(person)
-                swiftAddressBook?.save()
-				*/
+		SwiftAddressBook.requestAccessWithCompletion { (b :Bool, _ :CFError?) -> Void in
+			if b {
+
+				//TODO: COMMENT IN IF YOU ARE NOT RUNNING UNIT TESTS
+				//self.saveObjectsForTableView()
+
+				//TODO: to test adding a new person uncomment the following
+				//self.addNewPerson()
+
+				//TODO: to test adding a new group uncomment the following
+				//self.addNewGroup()
+
+				dispatch_async(dispatch_get_main_queue(), {
+					self.tableView.reloadData()
+				})
+
+			}
+		}
+	}
+
+	func addNewPerson() {
+		let person = SwiftAddressBookPerson.create()
+		person.firstName = "newTestuserFirstname"
+		person.lastName = "newTestuserLastname"
+		person.organization = "newTestuserCompanyname"
+
+		let phone = MultivalueEntry(value: "newTestuserNumber", label: "mobile", id: 1)
+		person.phoneNumbers = [phone]
+
+		var addresses : Array<MultivalueEntry<Dictionary<SwiftAddressBookAddressProperty,AnyObject>>>? = nil
+		let address1 = [SwiftAddressBookAddressProperty.street:"testStreet" as AnyObject, SwiftAddressBookAddressProperty.city:"testCity"];
+		let address2 = [SwiftAddressBookAddressProperty.street:"testStreet2" as AnyObject, SwiftAddressBookAddressProperty.city:"testCity2"];
+		addresses = [
+			MultivalueEntry(value: address1, label: kABWorkLabel as String?, id: 0),
+			MultivalueEntry(value: address2, label: kABHomeLabel as String?, id: 0)
+		];
+
+		person.addresses = addresses;
+
+		swiftAddressBook?.addRecord(person)
+		swiftAddressBook?.save()
+	}
+
+	func addNewGroup() {
+		let group = SwiftAddressBookGroup.create()
+
+		group.name = "Testgroup"
+
+		swiftAddressBook?.addRecord(group)
+
+		//it is necessary to save before adding people
+		swiftAddressBook?.save()
+
+		//add every second person
+		for var i = 0; i < self.people?.count; i += 2 {
+			group.addMember(self.people![i])
+		}
+
+		swiftAddressBook?.save()
+	}
+
+	func saveObjectsForTableView() {
+
+		people = swiftAddressBook?.allPeople
+		groups = []
+
+		let sources = swiftAddressBook?.allSources
+		for source in sources! {
+			//println("\(source.sourceName)") //TODO: This throws an exception
+			let newGroups = swiftAddressBook!.allGroupsInSource(source)!
+			self.groups = self.groups! + newGroups
+		}
+
+		self.numbers = self.people?.map { (p) -> (Array<String?>?) in
+			return p.phoneNumbers?.map { return $0.value }
+		}
+		self.names = self.people?.map { (p) -> (String?) in
+			return p.compositeName
+		}
+		self.birthdates = self.people?.map { (p) -> (NSDate?) in
+			return p.birthday
+		}
+	}
+
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
+
+	// MARK: - Table view data source
+
+	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+		return groups == nil ? 1 : groups!.count+1
+	}
+
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if groups == nil || section == groups?.count {
+			return people == nil ? 0 : people!.count
+		}
+		else {
+			if let members = groups![section].allMembers {
+				return members.count
+			}
+			else {
+				return 0
+			}
+		}
+	}
 
 
-                self.people = swiftAddressBook?.allPeople
-                
-                //TODO: to test adding a new group uncomment the following
-                /*
-                var group = SwiftAddressBookGroup.create()
-                
-                group.name = "Testgroup"
-                
-                swiftAddressBook?.addRecord(group)
-                
-                //it is necessary to save before adding people
-                swiftAddressBook?.save()
-                
-                //add every second person
-                for var i = 0; i < self.people?.count; i += 2 {
-                    group.addMember(self.people![i])
-                }
-                
-                swiftAddressBook?.save()
-                */
+	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
+		let cell = tableView.dequeueReusableCellWithIdentifier("addressCell", forIndexPath: indexPath) as! AddressViewCell
 
-				/* TODO: COMMENT IN IF YOU ARE NOT RUNNING UNIT TESTS
-                //save objects for tableview
-                
-                let sources = swiftAddressBook?.allSources
-                for source in sources! {
-                    //println("\(source.sourceName)") //TODO: This throws an exception
-                    let newGroups = swiftAddressBook!.allGroupsInSource(source)!
-                    self.groups = self.groups! + newGroups
-                }
-                
-                self.numbers = self.people?.map { (p) -> (Array<String?>?) in
-                    return p.phoneNumbers?.map { return $0.value }
-                }
-                self.names = self.people?.map { (p) -> (String?) in
-                    return p.compositeName
-                }
-                self.birthdates = self.people?.map { (p) -> (NSDate?) in
-                    return p.birthday
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.tableView.reloadData()
-                })
-				*/
-            }
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-			/* prevent concurrency bugs in testing */
-			return 0
-			//TODO: COMMENT IN IF YOU ARE NOT RUNNING UNIT TESTS
-			//return groups == nil ? 1 : groups!.count+1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        if groups == nil || section == groups?.count {
-            return people == nil ? 0 : people!.count
-        }
-        else {
-            if let members = groups![section].allMembers {
-                return members.count
-            }
-            else {
-                return 0
-            }
-        }
-    }
-
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("addressCell", forIndexPath: indexPath) as! AddressViewCell
-        
-        if groups == nil || indexPath.section == groups?.count {
-            // Configure the cell...
-            cell.nameLabel.text = people![indexPath.row].compositeName
-            cell.birthdateLabel.text = birthdates![indexPath.row]?.description
-            cell.phoneNumberLabel.text = numbers![indexPath.row]?.first!
-        }
-        else {
+		if groups == nil || indexPath.section == groups?.count {
+			// Configure the cell...
+			cell.nameLabel.text = people![indexPath.row].compositeName
+			cell.birthdateLabel.text = birthdates![indexPath.row]?.description
+			cell.phoneNumberLabel.text = numbers![indexPath.row]?.first!
+		}
+		else {
 			let group = groups![indexPath.section]
 			let member = group.allMembers![indexPath.row]
 			let name = member.compositeName
-            cell.nameLabel.text = name
-        }
+			cell.nameLabel.text = name
+		}
 
-        return cell
-    }
-    
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if groups == nil || section == groups?.count {
-            return "All people"
-        }
-        else {
-            return groups![section].name
-        }
-    }
+		return cell
+	}
+
+	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		if groups == nil || section == groups?.count {
+			return "All people"
+		}
+		else {
+			return groups![section].name
+		}
+	}
 
 }
