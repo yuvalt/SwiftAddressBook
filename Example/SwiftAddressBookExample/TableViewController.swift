@@ -22,7 +22,7 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        swiftAddressBook?.requestAccessWithCompletion { (b :Bool, _ :CFError?) -> Void in
+        SwiftAddressBook.requestAccessWithCompletion { (b :Bool, _ :CFError?) -> Void in
             if b {
                 
                 //TODO: to test adding a new person uncomment the following

@@ -16,22 +16,39 @@
 import UIKit
 import AddressBook
 
-//MARK: global address book variable
+//MARK: global address book variable (automatically lazy)
 
-public let swiftAddressBook : SwiftAddressBook? = SwiftAddressBook()
+public let swiftAddressBook : SwiftAddressBook! = SwiftAddressBook()
+public var accessError : CFError?
 
 //MARK: Address Book
 
 public class SwiftAddressBook {
-    
-    public var internalAddressBook : ABAddressBook!
-    
+
+	public var internalAddressBook : ABAddressBook!
+	
+	private lazy var addressBookObserver = SwiftAddressBookObserver()
+
+	public init?() {
+		var err : Unmanaged<CFError>? = nil
+		let abUnmanaged : Unmanaged<ABAddressBook>? = ABAddressBookCreateWithOptions(nil, &err)
+
+		//assign error or internalAddressBook, according to outcome
+		if err == nil {
+			internalAddressBook = abUnmanaged?.takeRetainedValue()
+		}
+		else {
+			accessError = err?.takeRetainedValue()
+			return nil
+		}
+	}
+
     public class func authorizationStatus() -> ABAuthorizationStatus {
         return ABAddressBookGetAuthorizationStatus()
     }
     
-    public func requestAccessWithCompletion( completion : (Bool, CFError?) -> Void ) {
-        ABAddressBookRequestAccessWithCompletion(internalAddressBook) {(let b : Bool, c : CFError!) -> Void in completion(b,c)}
+    public class func requestAccessWithCompletion( completion : (Bool, CFError?) -> Void ) {
+        ABAddressBookRequestAccessWithCompletion(nil) {(let b : Bool, c : CFError!) -> Void in completion(b,c)}
     }
     
     public func hasUnsavedChanges() -> Bool {
@@ -56,9 +73,7 @@ public class SwiftAddressBook {
     //MARK: person records
     
     public var personCount : Int {
-        get {
-            return ABAddressBookGetPersonCount(internalAddressBook)
-        }
+		return ABAddressBookGetPersonCount(internalAddressBook)
     }
     
     public func personWithRecordId(recordId : Int32) -> SwiftAddressBookPerson? {
@@ -66,28 +81,10 @@ public class SwiftAddressBook {
     }
     
     public var allPeople : [SwiftAddressBookPerson]? {
-        get {
-            return convertRecordsToPersons(ABAddressBookCopyArrayOfAllPeople(internalAddressBook).takeRetainedValue())
-        }
+		return convertRecordsToPersons(ABAddressBookCopyArrayOfAllPeople(internalAddressBook).takeRetainedValue())
     }
-    
-	private lazy var addressBookObserver = SwiftAddressBookObserver()
-
-	public init?() {
-		var err : Unmanaged<CFError>? = nil
-		let ab = ABAddressBookCreateWithOptions(nil, &err)
-		if err == nil {
-			internalAddressBook = ab.takeRetainedValue()
-		}
-		else {
-			return nil
-		}
-	}
-
-
 
 	public func registerExternalChangeCallback(callback: () -> Void) {
-
 		addressBookObserver.startObserveChangesWithCallback { (addressBook) -> Void in
 			callback()
 		}
@@ -151,15 +148,11 @@ public class SwiftAddressBook {
     }
     
     public var groupCount : Int {
-        get {
-            return ABAddressBookGetGroupCount(internalAddressBook)
-        }
+		return ABAddressBookGetGroupCount(internalAddressBook)
     }
     
     public var arrayOfAllGroups : [SwiftAddressBookGroup]? {
-        get {
-            return convertRecordsToGroups(ABAddressBookCopyArrayOfAllGroups(internalAddressBook).takeRetainedValue())
-        }
+		return convertRecordsToGroups(ABAddressBookCopyArrayOfAllGroups(internalAddressBook).takeRetainedValue())
     }
     
     public func allGroupsInSource(source : SwiftAddressBookSource) -> [SwiftAddressBookGroup]? {
@@ -170,9 +163,7 @@ public class SwiftAddressBook {
     //MARK: sources
     
     public var defaultSource : SwiftAddressBookSource? {
-        get {
-            return SwiftAddressBookSource(record: ABAddressBookCopyDefaultSource(internalAddressBook)?.takeRetainedValue())
-        }
+		return SwiftAddressBookSource(record: ABAddressBookCopyDefaultSource(internalAddressBook)?.takeRetainedValue())
     }
     
     public func sourceWithRecordId(sourceId : Int32) -> SwiftAddressBookSource? {
@@ -180,8 +171,6 @@ public class SwiftAddressBook {
     }
     
     public var allSources : [SwiftAddressBookSource]? {
-        get {
-            return convertRecordsToSources(ABAddressBookCopyArrayOfAllSources(internalAddressBook).takeRetainedValue())
-        }
-    }    
+		return convertRecordsToSources(ABAddressBookCopyArrayOfAllSources(internalAddressBook).takeRetainedValue())
+    }
 }
