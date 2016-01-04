@@ -13,8 +13,6 @@ import AddressBook
 
 //**** Run the example project first, to accept address book access ****
 class SwiftAddressBookSourceTests: XCTestCase {
-
-	let waitTime = 3.0
     
     let accessError = "Address book access was not granted. Run the main application and grant access to the address book."
     let accessErrorNil = "Failed to get address book access denial error"
@@ -32,62 +30,44 @@ class SwiftAddressBookSourceTests: XCTestCase {
 	//TODO: test source with id method
     
 	func testGetDefaultSourceAndProperties() {
-		let testExpectation = expectationWithDescription("testGroupName")
 
-		swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
-			XCTAssertTrue(success, self.accessError)
-			if success {
+		if (swiftAddressBook == nil) {
+			XCTAssertNotNil(swiftAddressBook, self.accessErrorNil)
+			return
+		}
 
-				let source = swiftAddressBook!.defaultSource
-				if let defaultSource = source {
+		let source = swiftAddressBook!.defaultSource
+		if let defaultSource = source {
 
-					let type = defaultSource.sourceType
-					let searchable = defaultSource.searchable
-					let sourceName = defaultSource.sourceName
+			let type = defaultSource.sourceType
+			let searchable = defaultSource.searchable
+			let sourceName = defaultSource.sourceName
 
-					XCTAssert(type == SwiftAddressBookSourceType.local, "default source must be of type local")
-					XCTAssert(sourceName == nil, "default source has no name, but should not")
-					XCTAssert(searchable == false, "default source is wrongly marked searchable")
-				}
-				else {
-					XCTAssert(false, "There must always be a default source!")
-				}
-
-			} else {
-				XCTAssertNotNil(error, self.accessErrorNil)
-			}
-
-			testExpectation.fulfill()
-		})
-
-		waitForExpectationsWithTimeout(waitTime, handler: nil)
+			XCTAssert(type == SwiftAddressBookSourceType.local, "default source must be of type local")
+			XCTAssert(sourceName == nil, "default source has no name, but should not")
+			XCTAssert(searchable == false, "default source is wrongly marked searchable")
+		}
+		else {
+			XCTAssert(false, "There must always be a default source!")
+		}
 	}
 
 	func inspectAllSources() {
-		let testExpectation = expectationWithDescription("testGroupName")
 
-		swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
-			XCTAssertTrue(success, self.accessError)
-			if success {
+		if (swiftAddressBook == nil) {
+			XCTAssertNotNil(swiftAddressBook, self.accessErrorNil)
+			return
+		}
 
-				let sources = swiftAddressBook!.allSources
+		let sources = swiftAddressBook!.allSources
 
-				if let unwrappedSources = sources {
-					if unwrappedSources.count == 0 {
-						XCTAssert(false, "There must always be at least a default source!")
-					}
-				}
-				else {
-					XCTAssert(false, "something went wrong getting array of all sources")
-				}
-
-			} else {
-				XCTAssertNotNil(error, self.accessErrorNil)
+		if let unwrappedSources = sources {
+			if unwrappedSources.count == 0 {
+				XCTAssert(false, "There must always be at least a default source!")
 			}
-
-			testExpectation.fulfill()
-		})
-
-		waitForExpectationsWithTimeout(waitTime, handler: nil)
+		}
+		else {
+			XCTAssert(false, "something went wrong getting array of all sources")
+		}
 	}
 }
