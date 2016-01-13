@@ -15,9 +15,9 @@ Complete wrapper for the ABAddressBook C-Framework for iOS, written in Swift to 
   
   Some minimal examples below:
   
-  1. Request access
+  1. Request access (**important**: changed in 0.6.1)
   ```Swift
-  swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
+  SwiftAddressBook.requestAccessWithCompletion({ (success, error) -> Void in
       if success {
         //do something with swiftAddressBook
       }
