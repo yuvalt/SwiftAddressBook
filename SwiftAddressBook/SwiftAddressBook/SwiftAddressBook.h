@@ -15,5 +15,4 @@ FOUNDATION_EXPORT double SwiftAddressBookVersionNumber;
 FOUNDATION_EXPORT const unsigned char SwiftAddressBookVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SwiftAddressBook/PublicHeader.h>
-
-
+#import <SwiftAddressBook/SwiftAddressBookObserver.h>

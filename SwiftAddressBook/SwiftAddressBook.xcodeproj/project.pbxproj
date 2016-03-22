@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A185D6D1C87C95C00A83FEC /* SwiftAddressBookObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A185D6B1C87C95C00A83FEC /* SwiftAddressBookObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4A185D6E1C87C95C00A83FEC /* SwiftAddressBookObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A185D6C1C87C95C00A83FEC /* SwiftAddressBookObserver.m */; };
 		734C7DEE1B88DE4A0015A5CE /* SwiftAddressBook.h in Headers */ = {isa = PBXBuildFile; fileRef = 734C7DED1B88DE4A0015A5CE /* SwiftAddressBook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		734C7DF41B88DE4A0015A5CE /* SwiftAddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734C7DE81B88DE4A0015A5CE /* SwiftAddressBook.framework */; };
 		734C7DFB1B88DE4A0015A5CE /* SwiftAddressBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734C7DFA1B88DE4A0015A5CE /* SwiftAddressBookTests.swift */; };
@@ -30,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A185D6B1C87C95C00A83FEC /* SwiftAddressBookObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftAddressBookObserver.h; path = ../../Pod/Classes/SwiftAddressBookObserver.h; sourceTree = "<group>"; };
+		4A185D6C1C87C95C00A83FEC /* SwiftAddressBookObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwiftAddressBookObserver.m; path = ../../Pod/Classes/SwiftAddressBookObserver.m; sourceTree = "<group>"; };
 		734C7DE81B88DE4A0015A5CE /* SwiftAddressBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAddressBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		734C7DEC1B88DE4A0015A5CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		734C7DED1B88DE4A0015A5CE /* SwiftAddressBook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftAddressBook.h; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 		734C7DEA1B88DE4A0015A5CE /* SwiftAddressBook */ = {
 			isa = PBXGroup;
 			children = (
+				4A185D6B1C87C95C00A83FEC /* SwiftAddressBookObserver.h */,
+				4A185D6C1C87C95C00A83FEC /* SwiftAddressBookObserver.m */,
 				734C7DED1B88DE4A0015A5CE /* SwiftAddressBook.h */,
 				7396C2DD1B8A2D9500DEB287 /* SwiftAddressBookDataStructures.swift */,
 				7396C2DE1B8A2D9500DEB287 /* SwiftAddressBookGroup.swift */,
@@ -130,6 +136,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A185D6D1C87C95C00A83FEC /* SwiftAddressBookObserver.h in Headers */,
 				734C7DEE1B88DE4A0015A5CE /* SwiftAddressBook.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,6 +186,7 @@
 		734C7DDF1B88DE4A0015A5CE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = SocialbitGmbH;
 				TargetAttributes = {
@@ -233,6 +241,7 @@
 				7396C2EA1B8A2D9500DEB287 /* SwiftAddressBookWrapper.swift in Sources */,
 				7396C2E71B8A2D9500DEB287 /* SwiftAddressBookPerson.swift in Sources */,
 				7396C2E61B8A2D9500DEB287 /* SwiftAddressBookHelperMethods.swift in Sources */,
+				4A185D6E1C87C95C00A83FEC /* SwiftAddressBookObserver.m in Sources */,
 				7396C2E91B8A2D9500DEB287 /* SwiftAddressBookSource.swift in Sources */,
 				7396C2E41B8A2D9500DEB287 /* SwiftAddressBookDataStructures.swift in Sources */,
 				7396C2E81B8A2D9500DEB287 /* SwiftAddressBookRecord.swift in Sources */,
@@ -362,6 +371,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
