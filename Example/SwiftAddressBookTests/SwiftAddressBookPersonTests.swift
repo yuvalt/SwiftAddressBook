@@ -49,6 +49,10 @@ class SwiftAddressBookPersonTests: XCTestCase {
 		p.setImage(imageRotated)
 		XCTAssertTrue(UIImagePNGRepresentation(imageRotated)!.isEqual(UIImagePNGRepresentation(p.image!)!),
 			"Images must stay the same after setting and retrieving again")
+
+		/* test with deleted image */
+		p.removeImage()
+		XCTAssertTrue(p.image == nil)
 	}
 
 	func testCompositeName() {

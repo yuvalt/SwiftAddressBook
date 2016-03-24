@@ -1,5 +1,15 @@
 platform :ios, '8.0'
-link_with "SwiftAddressBookExample", "SwiftAddressBookTests"
-use_frameworks!
-pod "SwiftAddressBook", :path => "../"
 
+use_frameworks!
+
+def allPods
+	pod "SwiftAddressBook", :path => "../"
+end
+
+target :"SwiftAddressBookExample" do
+	allPods
+end
+
+target :"SwiftAddressBookTests" do
+	allPods
+end

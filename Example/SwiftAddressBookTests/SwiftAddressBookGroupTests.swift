@@ -8,7 +8,6 @@
 
 import UIKit
 import XCTest
-import SwiftAddressBook
 import AddressBook
 
 //**** Run the example project first, to accept address book access ****

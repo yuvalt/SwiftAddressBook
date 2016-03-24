@@ -75,8 +75,8 @@ class TableViewController: UITableViewController {
 		//it is necessary to save before adding people
 		swiftAddressBook?.save()
 
-		//add every second person
-		for var i = 0; i < self.people?.count; i += 2 {
+		//add half of the people
+		for i in 0..<self.people!.count/2 {
 			group.addMember(self.people![i])
 		}
 

@@ -56,13 +56,16 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 
 	//MARK: Personal Information
 
-	public func setImage(image : UIImage) -> CFError? {
+	public func setImage(image : UIImage?) -> CFError? {
+		guard let image = image else { return removeImage() }
 		let imageData : NSData = UIImagePNGRepresentation(image) ?? NSData()
 		return errorIfNoSuccess { ABPersonSetImageData(self.internalRecord,  CFDataCreate(nil, UnsafePointer(imageData.bytes), imageData.length), $0) }
 	}
 
 	public var image : UIImage? {
-		return ABPersonHasImageData(internalRecord) ? UIImage(data: ABPersonCopyImageData(internalRecord).takeRetainedValue()) : nil
+		guard ABPersonHasImageData(internalRecord) else { return nil }
+		guard let data = ABPersonCopyImageData(internalRecord)?.takeRetainedValue() else { return nil }
+		return UIImage(data: data)
 	}
 
 	public func imageDataWithFormat(format : SwiftAddressBookPersonImageFormat) -> UIImage? {
