@@ -14,11 +14,13 @@ import AddressBook
 public struct MultivalueEntry<T> {
 	public var value : T
 	public var label : String?
+    public var localizedLabel : String?
 	public let id : Int
 
-	public init(value: T, label: String?, id: Int) {
+    public init(value: T, label: String?, localizedLabel: String?, id: Int) {
 		self.value = value
 		self.label = label
+        self.localizedLabel = localizedLabel
 		self.id = id
 	}
 }

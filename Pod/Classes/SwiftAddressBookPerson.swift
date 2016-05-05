@@ -367,8 +367,11 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			if let v : T = value {
 				let id : Int = Int(ABMultiValueGetIdentifierAtIndex(multivalue, i))
 				let optionalLabel = ABMultiValueCopyLabelAtIndex(multivalue, i)?.takeRetainedValue()
+                let optionalLocalziedLabel = optionalLabel == nil ?  nil : ABAddressBookCopyLocalizedLabel(optionalLabel)?.takeRetainedValue()
+                
 				array.append(MultivalueEntry(value: v,
 					label: optionalLabel == nil ? nil : optionalLabel! as String,
+                    localizedLabel: optionalLocalziedLabel == nil ? nil : optionalLocalziedLabel! as String,
 					id: id))
 			}
 		}
@@ -382,7 +385,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 
 			var array2 : Array<MultivalueEntry<Dictionary<V, W>>> = []
 			for oldValue in array {
-				let mv = MultivalueEntry(value: convertNSDictionary(oldValue.value, keyConverter: keyConverter, valueConverter: valueConverter)!, label: oldValue.label, id: oldValue.id)
+                let mv = MultivalueEntry(value: convertNSDictionary(oldValue.value, keyConverter: keyConverter, valueConverter: valueConverter)!, label: oldValue.label, localizedLabel: oldValue.localizedLabel, id: oldValue.id)
 				array2.append(mv);
 			}
 			return array2
@@ -428,7 +431,7 @@ public class SwiftAddressBookPerson : SwiftAddressBookRecord {
 			result = []
 			for m in multivalue {
 				let convertedValue = converter(m.value)
-				let converted = MultivalueEntry(value: convertedValue, label: m.label, id: m.id)
+                let converted = MultivalueEntry(value: convertedValue, label: m.label, localizedLabel: m.localizedLabel, id: m.id)
 				result?.append(converted)
 			}
 		}
